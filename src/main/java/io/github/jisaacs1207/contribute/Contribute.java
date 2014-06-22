@@ -14,7 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Contribute extends JavaPlugin{
 	
-	public String version = "1.0 Alpha";
+	public String version = "0.1 Alpha";
 	public String faction = "kingdom";
 	public String prefix = "[CTB]";
 	public String onLoad = " has been successfully loaded.";
@@ -35,7 +35,7 @@ public final class Contribute extends JavaPlugin{
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		if ((commandLabel.equalsIgnoreCase("contribute"))) { // If the player typed /basic then do the following...
+		if ((commandLabel.equalsIgnoreCase("contribute"))||(commandLabel.equalsIgnoreCase("ctb"))) { 
 			if (args.length == 0) {
 				sender.sendMessage(ChatColor.GOLD + this.prefix + ChatColor.GREEN + " Five Kingdoms Contribute " + this.version);
 				sender.sendMessage(ChatColor.GOLD + this.prefix + ChatColor.GREEN + " Aid your " + this.faction + " by donating materials!");
@@ -48,10 +48,10 @@ public final class Contribute extends JavaPlugin{
 				else if (args[0].equals("help")) {
 					sender.sendMessage("     -= Five Kingdoms Contribute Help =-");
 					sender.sendMessage("");
-					sender.sendMessage(" /contribute             - Version info");
-					sender.sendMessage(" /contribute help        - Help for for plugin");
+					sender.sendMessage(" /contribute - Version info");
+					sender.sendMessage(" /contribute help - Help for for plugin");
 					sender.sendMessage(" /contribute info [item] - Contribute stats");
-					sender.sendMessage(" /contribute add <item>  - Donates an item");
+					sender.sendMessage(" /contribute add <item> - Donates an item");
 					if ((sender.isOp()) || (sender.hasPermission("contribute.admin"))) {
 						sender.sendMessage(" /contribute force - Forces update of contribute [ADMIN]");
 					}
