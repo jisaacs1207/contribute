@@ -1,0 +1,10 @@
+name: Contribue
+main: io.github.jisaacs1207.contribute.Contribute
+version: 0.1
+
+commands:
+   contribute:
+      description: Contribute materials to your faction!
+      usage: /<command> [player]
+      permission: contribute.player
+      permission-message: You don't have <permission>
