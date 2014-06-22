@@ -1,10 +1,12 @@
 name: Contribute
 main: io.github.jisaacs1207.contribute.Contribute
 version: 0.1
+author: jisaacs1207
+website: http://fivekingdoms.net
+description: >
+             Contribute materials to your faction!
 
 commands:
    contribute:
       description: Contribute materials to your faction!
-      usage: /<command> [player]
-      permission: contribute.player
-      permission-message: You don't have <permission>
+      aliases: [ctb]
