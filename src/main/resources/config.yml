@@ -1,0 +1,15 @@
+FirstDonationItemName: Spider Eye
+SecondDonationItemName: Cobblestone
+ThirdDonationItemName: Redstone
+FourthDonationItemName: Clay
+
+FirstDonationItemId: 357
+SecondDonationItemId: 4 
+ThirdDonationItemId: 331
+FourthDonationItemId: 337
+
+FirstKingdomName: Light
+SecondKingdomName: Dark
+ThirdKingdomName: Pyro
+FourthKingdomName: Aqua
+FifthKingdomName: Druid
