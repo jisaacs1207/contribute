@@ -1,15 +1,39 @@
-FirstDonationItemName: Spider Eye
-SecondDonationItemName: Cobblestone
-ThirdDonationItemName: Redstone
-FourthDonationItemName: Clay
-
-FirstDonationItemId: 357
-SecondDonationItemId: 4 
-ThirdDonationItemId: 331
-FourthDonationItemId: 337
-
 FirstKingdomName: Light
 SecondKingdomName: Dark
 ThirdKingdomName: Pyro
 FourthKingdomName: Aqua
 FifthKingdomName: Druid
+
+#### Make sure that the item name is one word!                                
+#### Make sure that the item ID is correct!
+#### If the item does have material data then it goes in to "meta"
+####
+#### For example
+#### 
+#### FirstDonationItemName: RedWool
+#### SecondDonationItemName: Cobblestone
+#### ThirdDonationItemName: Redstone
+#### FourthDonationItemName: Clay
+####
+#### FirstDonationItemId: 35
+#### FirstDonationItemIdMeta: 15
+#### SecondDonationItemId: 4
+#### SecondDonationItemIdMeta: 0 
+#### ThirdDonationItemId: 331
+#### ThirdDonationItemIdMeta: 0
+#### FourthDonationItemId: 337
+#### FourthDonationItemIdMeta: 0
+
+FirstDonationItemName: RedWool
+SecondDonationItemName: Cobblestone
+ThirdDonationItemName: Redstone
+FourthDonationItemName: Clay
+
+FirstDonationItemId: 35
+FirstDonationItemIdMeta: 15
+SecondDonationItemId: 4
+SecondDonationItemIdMeta: 0 
+ThirdDonationItemId: 331
+ThirdDonationItemIdMeta: 0
+FourthDonationItemId: 337
+FourthDonationItemIdMeta: 0

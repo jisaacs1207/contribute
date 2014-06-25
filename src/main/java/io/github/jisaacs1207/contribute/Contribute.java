@@ -4,15 +4,31 @@
 
 package io.github.jisaacs1207.contribute;
 
+import java.util.List;
+
+import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class Contribute extends JavaPlugin{
+	
+	// Vault
+	
+	public static Permission perms = null;
+	public static Economy economy = null;
+	public static Chat chat = null;
+	
 	
 	public String version = "0.1 Alpha";
 	public String faction = "kingdom";
@@ -30,10 +46,17 @@ public final class Contribute extends JavaPlugin{
 	
 	// Contribution Item Ids
 	
-	public String dItemId1;
-	public String dItemId2;
-	public String dItemId3;
-	public String dItemId4;
+	public Integer dItemId1;
+	public Integer dItemId2;
+	public Integer dItemId3;
+	public Integer dItemId4;
+	
+	// Scrappy method of grabbing the meta info after the colon
+	// For example <id>:<meta>
+	public int dItemMeta1;
+	public int dItemMeta2;
+	public int dItemMeta3;
+	public int dItemMeta4;
 	
 	// Kingdom Names
 	
@@ -43,6 +66,7 @@ public final class Contribute extends JavaPlugin{
 	public String kingdom4;
 	public String kingdom5;
 	
+	public String pKingdom;
 	
 	
 	@Override
@@ -51,16 +75,21 @@ public final class Contribute extends JavaPlugin{
 		
 		// Set the default config file if it isn't there.
 		saveDefaultConfig();
+		setupPermissions();
 		
 		// Pull goodies from the config file
 		dItemNm1 = getConfig().getString("FirstDonationItemName");
 		dItemNm2 = getConfig().getString("SecondDonationItemName");
 		dItemNm3 = getConfig().getString("ThirdDonationItemName");
 		dItemNm4 = getConfig().getString("FourthDonationItemName");
-		dItemId1 = getConfig().getString("FirstDonationItemId");
-		dItemId2 = getConfig().getString("SecondDonationItemId");
-		dItemId3 = getConfig().getString("ThirdDonationItemId");
-		dItemId4 = getConfig().getString("FourthDonationItemId");
+		dItemId1 = getConfig().getInt("FirstDonationItemId");
+		dItemId2 = getConfig().getInt("SecondDonationItemId");
+		dItemId3 = getConfig().getInt("ThirdDonationItemId");
+		dItemId4 = getConfig().getInt("FourthDonationItemId");
+		dItemMeta1 = getConfig().getInt("FirstDonationItemIdMeta");
+		dItemMeta2 = getConfig().getInt("SecondDonationItemIdMeta");
+		dItemMeta3 = getConfig().getInt("ThirdDonationItemIdMeta");
+		dItemMeta4 = getConfig().getInt("FourthDonationItemIdMeta");
 		kingdom1 = getConfig().getString("FirstKingdomName");
 		kingdom2 = getConfig().getString("SecondKingdomName");
 		kingdom3 = getConfig().getString("ThirdKingdomName");
@@ -72,9 +101,35 @@ public final class Contribute extends JavaPlugin{
 	public void onDisable() {
 		getLogger().info(this.onUnload);
 	}
-	
+	private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        perms = rsp.getProvider();
+        return perms != null;
+    }
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+		Player player = (Player)sender;
+		this.pKingdom = null;
+		if((!perms.has(player, "contribute.1"))&&(!perms.has(player, "contribute.2"))&&(!perms.has(player, "contribute.3"))&&(!perms.has(player, "contribute.4"))&&(!perms.has(player, "contribute.5"))){
+			sender.sendMessage("You have no kingdom affiliate! Contact an OP!");
+			return true;
+		}
+		else if(perms.has(player, "contribute.1")){
+			this.pKingdom = kingdom1;
+		}
+		else if(perms.has(player, "contribute.2")){
+			this.pKingdom = kingdom2;
+		}
+		else if(perms.has(player, "contribute.3")){
+			this.pKingdom = kingdom3;
+		}
+		else if(perms.has(player, "contribute.4")){
+			this.pKingdom = kingdom4;
+		}
+		else if(perms.has(player, "contribute.5")){
+			this.pKingdom = kingdom5;
+		}
 		if ((commandLabel.equalsIgnoreCase("contribute"))||(commandLabel.equalsIgnoreCase("ctb"))) { 
 			if (args.length == 0) {
 				sender.sendMessage(ChatColor.GOLD + this.prefix + ChatColor.GREEN + " Five Kingdoms Contribute " + this.version);
@@ -85,7 +140,7 @@ public final class Contribute extends JavaPlugin{
 				if (!args[0].equals("help")&&(!args[0].equals("info"))) {
 					sender.sendMessage(syntaxError);
 				}
-				else if (args[0].equals("help")) {
+				else if (args[0].equalsIgnoreCase("help")) {
 					sender.sendMessage("     -= Five Kingdoms Contribute Help =-");
 					sender.sendMessage("");
 					sender.sendMessage(" /contribute - Version info");
@@ -96,7 +151,7 @@ public final class Contribute extends JavaPlugin{
 						sender.sendMessage(" /contribute force - Forces update of contribute [ADMIN]");
 					}
 				}
-				else if (args[0].equals("info")) {
+				else if (args[0].equalsIgnoreCase("info")) {
 					sender.sendMessage("     -= Five Kingdoms Contribute Winners =-");
 					sender.sendMessage("");
 					// kingdom here is a temp stub!! This needs to be changed to decide the winning kingdom later
@@ -108,17 +163,34 @@ public final class Contribute extends JavaPlugin{
 				}
 			else if (args.length == 2) {
 				if (args[0].equals("add")) {
-					if ((!args[1].equals(dItemNm1))&&(!args[1].equals(dItemNm2))&&(!args[1].equals(dItemNm3))&&(!args[1].equals(dItemNm4))) {
+					if ((!args[1].equalsIgnoreCase(dItemNm1))&&(!args[1].equalsIgnoreCase(dItemNm2))&&(!args[1].equalsIgnoreCase(dItemNm3))&&(!args[1].equalsIgnoreCase(dItemNm4))) {
 						sender.sendMessage("You can only donate the following items:");
 						sender.sendMessage(dItemNm1);
 						sender.sendMessage(dItemNm2);
 						sender.sendMessage(dItemNm3);
 						sender.sendMessage(dItemNm4);
 					}
+					else if(args[1].equalsIgnoreCase(dItemNm1)) {
+						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm1 + "!");
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId1), 1, (byte) dItemMeta1));	
+					}
+					else if(args[1].equalsIgnoreCase(dItemNm2)) {
+						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm2 + "!");
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId2), 1, (byte) dItemMeta2));	
+					}
+					else if(args[1].equalsIgnoreCase(dItemNm3)) {
+						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm3 + "!");
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId3), 1, (byte) dItemMeta3));	
+					}
+					else if(args[1].equalsIgnoreCase(dItemNm4)) {
+						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm4 + "!");
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId4), 1, (byte) dItemMeta4));	
+					}
 					
 				}
-				else if (args[0].equals("info")) {
+				else if (args[0].equalsIgnoreCase("info")) {
 					//info stub
+					
 				}
 			}	
 			return true;
@@ -127,3 +199,5 @@ public final class Contribute extends JavaPlugin{
 		return false; 
 	}
 }
+
+
