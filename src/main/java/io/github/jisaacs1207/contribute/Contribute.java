@@ -75,7 +75,6 @@ public final class Contribute extends JavaPlugin{
 		
 		// Set the default config file if it isn't there.
 		saveDefaultConfig();
-		setupPermissions();
 		
 		// Pull goodies from the config file
 		dItemNm1 = getConfig().getString("FirstDonationItemName");
@@ -101,34 +100,34 @@ public final class Contribute extends JavaPlugin{
 	public void onDisable() {
 		getLogger().info(this.onUnload);
 	}
-	private boolean setupPermissions() {
-        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-        perms = rsp.getProvider();
-        return perms != null;
-    }
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player)sender;
 		this.pKingdom = null;
-		if((!perms.has(player, "contribute.1"))&&(!perms.has(player, "contribute.2"))&&(!perms.has(player, "contribute.3"))&&(!perms.has(player, "contribute.4"))&&(!perms.has(player, "contribute.5"))){
-			sender.sendMessage("You have no kingdom affiliate! Contact an OP!");
+		if((!player.hasPermission("contribute.1"))&&(!player.hasPermission("contribute.2"))&&(!player.hasPermission("contribute.3"))&&(!player.hasPermission("contribute.4"))&&(!player.hasPermission("contribute.5"))){
+			sender.sendMessage("You have no kingdom affiliation! Contact an OP if you believe this is an error.");
 			return true;
 		}
-		else if(perms.has(player, "contribute.1")){
+		else if(player.hasPermission("contribute.1")){
 			this.pKingdom = kingdom1;
+			sender.sendMessage("1");
 		}
-		else if(perms.has(player, "contribute.2")){
+		else if(player.hasPermission("contribute.2")){
 			this.pKingdom = kingdom2;
+			sender.sendMessage("2");
 		}
-		else if(perms.has(player, "contribute.3")){
+		else if(player.hasPermission("contribute.3")){
 			this.pKingdom = kingdom3;
+			sender.sendMessage("3");
 		}
-		else if(perms.has(player, "contribute.4")){
+		else if(player.hasPermission("contribute.4")){
 			this.pKingdom = kingdom4;
+			sender.sendMessage("4");
 		}
-		else if(perms.has(player, "contribute.5")){
+		else if(player.hasPermission("contribute.5")){
 			this.pKingdom = kingdom5;
+			sender.sendMessage("5");
 		}
 		if ((commandLabel.equalsIgnoreCase("contribute"))||(commandLabel.equalsIgnoreCase("ctb"))) { 
 			if (args.length == 0) {

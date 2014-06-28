@@ -1,3 +1,11 @@
+####
+#### Each kingdom needs a sequential permission in their group. EX:
+#### The first kingdom needs the permission "contribute.1"
+#### The second kingdom needs the permission "contribute.2"
+#### Currently only room for 5 kingdoms.
+####
+
+
 FirstKingdomName: Light
 SecondKingdomName: Dark
 ThirdKingdomName: Pyro
@@ -16,7 +24,7 @@ FifthKingdomName: Druid
 #### FourthDonationItemName: Clay
 ####
 #### FirstDonationItemId: 35
-#### FirstDonationItemIdMeta: 15
+#### FirstDonationItemIdMeta: 14
 #### SecondDonationItemId: 4
 #### SecondDonationItemIdMeta: 0 
 #### ThirdDonationItemId: 331
@@ -30,7 +38,7 @@ ThirdDonationItemName: Redstone
 FourthDonationItemName: Clay
 
 FirstDonationItemId: 35
-FirstDonationItemIdMeta: 15
+FirstDonationItemIdMeta: 14
 SecondDonationItemId: 4
 SecondDonationItemIdMeta: 0 
 ThirdDonationItemId: 331
