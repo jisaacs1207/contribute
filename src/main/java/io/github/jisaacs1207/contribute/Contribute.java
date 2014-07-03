@@ -121,23 +121,18 @@ public final class Contribute extends JavaPlugin{
 		}
 		else if(player.hasPermission("contribute.1")){
 			this.pKingdom = kingdom1;
-			sender.sendMessage("1");
 		}
 		else if(player.hasPermission("contribute.2")){
 			this.pKingdom = kingdom2;
-			sender.sendMessage("2");
 		}
 		else if(player.hasPermission("contribute.3")){
 			this.pKingdom = kingdom3;
-			sender.sendMessage("3");
 		}
 		else if(player.hasPermission("contribute.4")){
 			this.pKingdom = kingdom4;
-			sender.sendMessage("4");
 		}
 		else if(player.hasPermission("contribute.5")){
 			this.pKingdom = kingdom5;
-			sender.sendMessage("5");
 		}
 		if ((commandLabel.equalsIgnoreCase("contribute"))||(commandLabel.equalsIgnoreCase("ctb"))) { 
 			if (args.length == 0) {
@@ -180,18 +175,34 @@ public final class Contribute extends JavaPlugin{
 						sender.sendMessage(dItemNm4);
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm1)) {
+						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId1), 1, (short) dItemMeta1), 1)){
+							sender.sendMessage("You don't have that much " + dItemNm1 + "!" );
+							return true;
+						}
 						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm1 + "!");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId1), 1, (byte) dItemMeta1));	
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm2)) {
+						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId2), 1, (short) dItemMeta2), 1)){
+							sender.sendMessage("You don't have that much " + dItemNm2 + "!" );
+							return true;
+						}
 						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm2 + "!");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId2), 1, (byte) dItemMeta2));	
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm3)) {
+						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId3), 1, (short) dItemMeta3), 1)){
+							sender.sendMessage("You don't have that much " + dItemNm3 + "!" );
+							return true;
+						}
 						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm3 + "!");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId3), 1, (byte) dItemMeta3));	
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm4)) {
+						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId4), 1, (short) dItemMeta4), 1)){
+							sender.sendMessage("You don't have that much " + dItemNm4 + "!" );
+							return true;
+						}
 						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm4 + "!");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId4), 1, (byte) dItemMeta4));	
 					}
