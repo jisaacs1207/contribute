@@ -49,3 +49,36 @@ ThirdDonationItemId: 331
 ThirdDonationItemIdMeta: 0
 FourthDonationItemId: 337
 FourthDonationItemIdMeta: 0
+
+#### Don't touch beyond here.
+
+kingdom1:
+    item1: 0
+    item2: 0
+    item3: 0
+    item4: 0
+    item5: 0
+kingdom2:
+    item1: 0
+    item2: 0
+    item3: 0
+    item4: 0
+    item5: 0
+kingdom3:
+    item1: 0
+    item2: 0
+    item3: 0
+    item4: 0
+    item5: 0
+kingdom4:
+    item1: 0
+    item2: 0
+    item3: 0
+    item4: 0
+    item5: 0
+kingdom5:
+    item1: 0
+    item2: 0
+    item3: 0
+    item4: 0
+    item5: 0

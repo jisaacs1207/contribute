@@ -1,3 +1,7 @@
+// TO DO
+// 1) FILL IN STUBS
+// 2) ...
+// 3) PROFIT
 
 // Permissions:
 // contribute.admin - admin commands
@@ -10,10 +14,10 @@
 
 package io.github.jisaacs1207.contribute;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -60,6 +64,33 @@ public final class Contribute extends JavaPlugin{
 	public int dItemMeta3;
 	public int dItemMeta4;
 	
+	// Item Amount
+	
+	public int k1i1;
+	public int k1i2;
+	public int k1i3;
+	public int k1i4;
+	
+	public int k2i1;
+	public int k2i2;
+	public int k2i3;
+	public int k2i4;
+	
+	public int k3i1;
+	public int k3i2;
+	public int k3i3;
+	public int k3i4;
+	
+	public int k4i1;
+	public int k4i2;
+	public int k4i3;
+	public int k4i4;
+	
+	public int k5i1;
+	public int k5i2;
+	public int k5i3;
+	public int k5i4;
+	
 	// Kingdom Names
 	
 	public String kingdom1;
@@ -70,6 +101,7 @@ public final class Contribute extends JavaPlugin{
 	
 	public String pKingdom;
 	
+	FileConfiguration contributions;
 	
 	@Override
 	public void onEnable() {
@@ -77,7 +109,7 @@ public final class Contribute extends JavaPlugin{
 		
 		// Set the default config file if it isn't there.
 		saveDefaultConfig();
-		
+
 		// Pull goodies from the config file
 		dItemNm1 = getConfig().getString("FirstDonationItemName");
 		dItemNm2 = getConfig().getString("SecondDonationItemName");
@@ -96,6 +128,31 @@ public final class Contribute extends JavaPlugin{
 		kingdom3 = getConfig().getString("ThirdKingdomName");
 		kingdom4 = getConfig().getString("FourthKingdomName");
 		kingdom5 = getConfig().getString("FifthKingdomName");
+		
+		k1i1 = getConfig().getInt("kingdom1.item1");
+		k1i2 = getConfig().getInt("kingdom1.item2");
+		k1i3 = getConfig().getInt("kingdom1.item3");
+		k1i4 = getConfig().getInt("kingdom1.item4");
+		
+		k2i1 = getConfig().getInt("kingdom2.item1");
+		k2i2 = getConfig().getInt("kingdom2.item2");
+		k2i3 = getConfig().getInt("kingdom2.item3");
+		k2i4 = getConfig().getInt("kingdom2.item4");
+		
+		k3i1 = getConfig().getInt("kingdom3.item1");
+		k3i2 = getConfig().getInt("kingdom3.item2");
+		k3i3 = getConfig().getInt("kingdom3.item3");
+		k3i4 = getConfig().getInt("kingdom3.item4");
+		
+		k4i1 = getConfig().getInt("kingdom4.item1");
+		k4i2 = getConfig().getInt("kingdom4.item2");
+		k4i3 = getConfig().getInt("kingdom4.item3");
+		k4i4 = getConfig().getInt("kingdom4.item4");
+		
+		k5i1 = getConfig().getInt("kingdom5.item1");
+		k5i2 = getConfig().getInt("kingdom5.item2");
+		k5i3 = getConfig().getInt("kingdom5.item3");
+		k5i4 = getConfig().getInt("kingdom5.item4");
 	}
  
 	@Override
@@ -106,6 +163,30 @@ public final class Contribute extends JavaPlugin{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player)sender;
+		k1i1 = getConfig().getInt("kingdom1.item1");
+		k1i2 = getConfig().getInt("kingdom1.item2");
+		k1i3 = getConfig().getInt("kingdom1.item3");
+		k1i4 = getConfig().getInt("kingdom1.item4");
+		
+		k2i1 = getConfig().getInt("kingdom2.item1");
+		k2i2 = getConfig().getInt("kingdom2.item2");
+		k2i3 = getConfig().getInt("kingdom2.item3");
+		k2i4 = getConfig().getInt("kingdom2.item4");
+		
+		k3i1 = getConfig().getInt("kingdom3.item1");
+		k3i2 = getConfig().getInt("kingdom3.item2");
+		k3i3 = getConfig().getInt("kingdom3.item3");
+		k3i4 = getConfig().getInt("kingdom3.item4");
+		
+		k4i1 = getConfig().getInt("kingdom4.item1");
+		k4i2 = getConfig().getInt("kingdom4.item2");
+		k4i3 = getConfig().getInt("kingdom4.item3");
+		k4i4 = getConfig().getInt("kingdom4.item4");
+		
+		k5i1 = getConfig().getInt("kingdom5.item1");
+		k5i2 = getConfig().getInt("kingdom5.item2");
+		k5i3 = getConfig().getInt("kingdom5.item3");
+		k5i4 = getConfig().getInt("kingdom5.item4");
 		this.pKingdom = null;
 		if((!player.hasPermission("contribute.1"))&&(!player.hasPermission("contribute.2"))&&(!player.hasPermission("contribute.3"))&&(!player.hasPermission("contribute.4"))&&(!player.hasPermission("contribute.5"))){
 			sender.sendMessage("You have no kingdom affiliation! Contact an OP if you believe this is an error.");
@@ -180,7 +261,32 @@ public final class Contribute extends JavaPlugin{
 							return true;
 						}
 						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm1 + "!");
-						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId1), 1, (byte) dItemMeta1));	
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId1), 1, (byte) dItemMeta1));
+						if (this.pKingdom.equals(kingdom1)){
+							k1i1 += 1;
+							this.getConfig().set("kingdom1.item1", k1i1);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom2)){
+							k2i1 += 1;
+							this.getConfig().set("kingdom2.item1", k2i1);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom3)){
+							k3i1 += 1;
+							this.getConfig().set("kingdom3.item1", k3i1);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom4)){
+							k4i1 += 1;
+							this.getConfig().set("kingdom4.item1", k4i1);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom5)){
+							k5i1 += 1;
+							this.getConfig().set("kingdom5.item1", k5i1);
+							this.saveConfig();
+						}
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm2)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId2), 1, (short) dItemMeta2), 1)){
@@ -188,7 +294,32 @@ public final class Contribute extends JavaPlugin{
 							return true;
 						}
 						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm2 + "!");
-						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId2), 1, (byte) dItemMeta2));	
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId2), 1, (byte) dItemMeta2));
+						if (this.pKingdom.equals(kingdom1)){
+							k1i2 += 1;
+							this.getConfig().set("kingdom1.item2", k1i2);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom2)){
+							k2i2 += 1;
+							this.getConfig().set("kingdom2.item2", k2i2);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom3)){
+							k3i2 += 1;
+							this.getConfig().set("kingdom3.item2", k3i2);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom4)){
+							k4i2 += 1;
+							this.getConfig().set("kingdom4.item2", k4i2);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom5)){
+							k5i2 += 1;
+							this.getConfig().set("kingdom5.item2", k5i2);
+							this.saveConfig();
+						}
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm3)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId3), 1, (short) dItemMeta3), 1)){
@@ -196,7 +327,32 @@ public final class Contribute extends JavaPlugin{
 							return true;
 						}
 						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm3 + "!");
-						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId3), 1, (byte) dItemMeta3));	
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId3), 1, (byte) dItemMeta3));
+						if (this.pKingdom.equals(kingdom1)){
+							k1i3 += 1;
+							this.getConfig().set("kingdom1.item3", k1i3);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom2)){
+							k2i3 += 1;
+							this.getConfig().set("kingdom2.item3", k2i3);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom3)){
+							k3i3 += 1;
+							this.getConfig().set("kingdom3.item3", k3i3);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom4)){
+							k4i3 += 1;
+							this.getConfig().set("kingdom4.item3", k4i3);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom5)){
+							k5i3 += 1;
+							this.getConfig().set("kingdom5.item3", k5i3);
+							this.saveConfig();
+						}
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm4)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId4), 1, (short) dItemMeta4), 1)){
@@ -204,13 +360,38 @@ public final class Contribute extends JavaPlugin{
 							return true;
 						}
 						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm4 + "!");
-						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId4), 1, (byte) dItemMeta4));	
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId4), 1, (byte) dItemMeta4));
+						if (this.pKingdom.equals(kingdom1)){
+							k1i4 += 1;
+							this.getConfig().set("kingdom1.item4", k1i4);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom2)){
+							k2i4 += 1;
+							this.getConfig().set("kingdom2.item4", k2i4);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom3)){
+							k3i4 += 1;
+							this.getConfig().set("kingdom3.item4", k3i4);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom4)){
+							k4i4 += 1;
+							this.getConfig().set("kingdom4.item4", k4i4);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom5)){
+							k5i4 += 1;
+							this.getConfig().set("kingdom5.item4", k5i4);
+							this.saveConfig();
+						}
 					}
 					
 				}
 				else if (args[0].equalsIgnoreCase("info")) {
-					//info stub
-					
+					// STILL A STUB... FILL IN WITH REAL WINNERS!
+		
 				}
 			}	
 			return true;
