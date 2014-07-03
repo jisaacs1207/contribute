@@ -1,10 +1,14 @@
 
 // Permissions:
 // contribute.admin - admin commands
+// contribute.1 - kingdom one
+// contribute.2 - kingdom two
+// contribute.3 - kingdom three
+// contribute.4 - kingdom four
+// contribute.5 - kingdom five
+// contribute.staff - staff that can't contribute
 
 package io.github.jisaacs1207.contribute;
-
-import java.util.List;
 
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -16,8 +20,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -107,6 +109,14 @@ public final class Contribute extends JavaPlugin{
 		this.pKingdom = null;
 		if((!player.hasPermission("contribute.1"))&&(!player.hasPermission("contribute.2"))&&(!player.hasPermission("contribute.3"))&&(!player.hasPermission("contribute.4"))&&(!player.hasPermission("contribute.5"))){
 			sender.sendMessage("You have no kingdom affiliation! Contact an OP if you believe this is an error.");
+			return true;
+		}
+		else if(player.isOp()){
+			sender.sendMessage("Stop playing and go do some op work, eh?");
+			return true;
+		}
+		else if(player.hasPermission("contribute.staff")){
+			sender.sendMessage("Stop playing and go do some op work, eh?");
 			return true;
 		}
 		else if(player.hasPermission("contribute.1")){

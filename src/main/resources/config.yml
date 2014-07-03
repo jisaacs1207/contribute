@@ -5,6 +5,10 @@
 #### Currently only room for 5 kingdoms.
 ####
 
+####
+#### contribute.staff players cannot contribute
+#### contribute.admin players can run admin commands
+####
 
 FirstKingdomName: Light
 SecondKingdomName: Dark
