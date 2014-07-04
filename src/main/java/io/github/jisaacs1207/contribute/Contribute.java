@@ -214,15 +214,15 @@ public final class Contribute extends JavaPlugin implements Listener{
 			fillVariables();
 			this.pKingdom = null;
 			if((!player.hasPermission("contribute.1"))&&(!player.hasPermission("contribute.2"))&&(!player.hasPermission("contribute.3"))&&(!player.hasPermission("contribute.4"))&&(!player.hasPermission("contribute.5"))){
-				sender.sendMessage("You have no kingdom affiliation! Contact an OP if you believe this is an error.");
+				sender.sendMessage("ChatColor.YELLOW + You have no kingdom affiliation! Contact an OP if you believe this is an error.");
 				return true;
 			}
 			else if(player.isOp()){
-				sender.sendMessage("Stop playing and go do some op work, eh?");
+				sender.sendMessage(ChatColor.YELLOW + "Stop playing and go do some op work, eh?");
 				return true;
 			}
 			else if(player.hasPermission("contribute.staff")){
-				sender.sendMessage("Stop playing and go do some op work, eh?");
+				sender.sendMessage(ChatColor.YELLOW + "Stop playing and go do some op work, eh?");
 				return true;
 			}
 			else if(player.hasPermission("contribute.1")){
@@ -241,52 +241,64 @@ public final class Contribute extends JavaPlugin implements Listener{
 				this.pKingdom = kingdom5;
 			}
 			if (args.length == 0) {
+				sender.sendMessage("");
 				sender.sendMessage(ChatColor.GOLD + this.prefix + ChatColor.GREEN + " Five Kingdoms Contribute " + this.version);
 				sender.sendMessage(ChatColor.GOLD + this.prefix + ChatColor.GREEN + " Aid your " + this.faction + " by donating materials!");
 				sender.sendMessage(ChatColor.GOLD + this.prefix + ChatColor.YELLOW + " Type '" + ChatColor.LIGHT_PURPLE + "/contribute help" + ChatColor.YELLOW + "' for command help.");
+				sender.sendMessage("");
 			}
 			else if (args.length == 1) {
 				if (!args[0].equals("help")&&(!args[0].equals("info"))) {
 					sender.sendMessage(syntaxError);
 				}
 				else if (args[0].equalsIgnoreCase("help")) {
-					sender.sendMessage("     -= Five Kingdoms Contribute Help =-");
 					sender.sendMessage("");
-					sender.sendMessage(" /contribute - Version info");
-					sender.sendMessage(" /contribute help - Help for for plugin");
-					sender.sendMessage(" /contribute info [item] - Contribute stats");
-					sender.sendMessage(" /contribute add <item> - Donates an item");
-					if ((sender.isOp()) || (sender.hasPermission("contribute.admin"))) {
-						sender.sendMessage(" /contribute force - Forces update of contribute [ADMIN]");
-					}
+					sender.sendMessage(ChatColor.GOLD + "          -= " + ChatColor.DARK_AQUA + "Five Kingdoms Contribute Help " + ChatColor.GOLD + "=-");
+					sender.sendMessage("");
+					sender.sendMessage(ChatColor.GOLD + "               /contribute" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Version info");
+					sender.sendMessage(ChatColor.GOLD + "         /contribute help" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Help for for plugin");
+					sender.sendMessage(ChatColor.GOLD + "             /contribute info" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Contribute stats");
+					sender.sendMessage(ChatColor.GOLD + "         /contribute info [item]" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Item stats");
+					sender.sendMessage(ChatColor.GOLD + "  /contribute add <item> [amount]" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Donates items");
+					sender.sendMessage("");
+					return true;
 				}
 				else if (args[0].equalsIgnoreCase("info")) {
-					sender.sendMessage("     -= Five Kingdoms Contribute Winners =-");
+					sender.sendMessage("");
+					sender.sendMessage(ChatColor.GOLD + "     -= " + ChatColor.DARK_AQUA + "Five Kingdoms Contribute Winners" + ChatColor.GOLD + " =-");
 					sender.sendMessage("");
 					findWinner();
-					sender.sendMessage(dItemNm1 + " - " + i1Winner);
-					sender.sendMessage(dItemNm2 + " - " + i2Winner);
-					sender.sendMessage(dItemNm3 + " - " + i3Winner);
-					sender.sendMessage(dItemNm4 + " - " + i4Winner);
+					sender.sendMessage(ChatColor.RED + "                  " + dItemNm1 + ChatColor.WHITE + " - " + ChatColor.GOLD + i1Winner);
+					sender.sendMessage(ChatColor.BLUE + "                  " + dItemNm2 + ChatColor.WHITE + " - " + ChatColor.GOLD + i2Winner);
+					sender.sendMessage(ChatColor.GREEN + "                  " + dItemNm3 + ChatColor.WHITE + " - " + ChatColor.GOLD + i3Winner);
+					sender.sendMessage(ChatColor.LIGHT_PURPLE + "                  " + dItemNm4 + ChatColor.WHITE + " - " + ChatColor.GOLD + i4Winner);
+					sender.sendMessage("");
 					return true;
 					}
 				}	
 			else if (args.length == 2) {
 				if (args[0].equals("add")) {
 					if ((!args[1].equalsIgnoreCase(dItemNm1))&&(!args[1].equalsIgnoreCase(dItemNm2))&&(!args[1].equalsIgnoreCase(dItemNm3))&&(!args[1].equalsIgnoreCase(dItemNm4))) {
-						sender.sendMessage("You can only donate the following items:");
-						sender.sendMessage(dItemNm1);
-						sender.sendMessage(dItemNm2);
-						sender.sendMessage(dItemNm3);
-						sender.sendMessage(dItemNm4);
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.DARK_AQUA + "       You can only donate the following items this week:");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.RED + "                   " + dItemNm1);
+						sender.sendMessage(ChatColor.BLUE + "                   " + dItemNm2);
+						sender.sendMessage(ChatColor.GREEN + "                   " + dItemNm3);
+						sender.sendMessage(ChatColor.LIGHT_PURPLE + "                   " + dItemNm4);
+						sender.sendMessage("");
 						return true;
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm1)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId1), 1, (short) dItemMeta1), 1)){
-							sender.sendMessage("You don't have that much " + dItemNm1 + "!" );
+							sender.sendMessage("");
+							sender.sendMessage(ChatColor.RED + "You don't have that much " + dItemNm1 + "!" );
+							sender.sendMessage("");
 							return true;
 						}
-						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm1 + "!");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm1 + ChatColor.GREEN + "!");
+						sender.sendMessage("");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId1), 1, (byte) dItemMeta1));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i1 += 1;
@@ -316,10 +328,14 @@ public final class Contribute extends JavaPlugin implements Listener{
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm2)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId2), 1, (short) dItemMeta2), 1)){
-							sender.sendMessage("You don't have that much " + dItemNm2 + "!" );
+							sender.sendMessage("");
+							sender.sendMessage(ChatColor.RED + "You don't have that much " + dItemNm2 + "!" );
+							sender.sendMessage("");
 							return true;
 						}
-						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm2 + "!");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm2 + ChatColor.GREEN + "!");
+						sender.sendMessage("");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId2), 1, (byte) dItemMeta2));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i2 += 1;
@@ -349,10 +365,14 @@ public final class Contribute extends JavaPlugin implements Listener{
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm3)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId3), 1, (short) dItemMeta3), 1)){
-							sender.sendMessage("You don't have that much " + dItemNm3 + "!" );
+							sender.sendMessage("");
+							sender.sendMessage(ChatColor.RED + "You don't have that much " + dItemNm3 + "!" );
+							sender.sendMessage("");
 							return true;
 						}
-						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm3 + "!");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm3 + ChatColor.GREEN + "!");
+						sender.sendMessage("");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId3), 1, (byte) dItemMeta3));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i3 += 1;
@@ -382,10 +402,14 @@ public final class Contribute extends JavaPlugin implements Listener{
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm4)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId4), 1, (short) dItemMeta4), 1)){
-							sender.sendMessage("You don't have that much " + dItemNm4 + "!" );
+							sender.sendMessage("");
+							sender.sendMessage(ChatColor.RED + "You don't have that much " + dItemNm4 + "!" );
+							sender.sendMessage("");
 							return true;
 						}
-						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm4 + "!");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm4 + ChatColor.GREEN + "!");
+						sender.sendMessage("");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId4), 1, (byte) dItemMeta4));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i4 += 1;
@@ -416,52 +440,59 @@ public final class Contribute extends JavaPlugin implements Listener{
 				}
 				else if (args[0].equalsIgnoreCase("info")) {
 					if ((!args[1].equalsIgnoreCase(dItemNm1))&&(!args[1].equalsIgnoreCase(dItemNm2))&&(!args[1].equalsIgnoreCase(dItemNm3))&&(!args[1].equalsIgnoreCase(dItemNm4))){
-						sender.sendMessage("You can only check the following items:");
-						sender.sendMessage(dItemNm1);
-						sender.sendMessage(dItemNm2);
-						sender.sendMessage(dItemNm3);
-						sender.sendMessage(dItemNm4);
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.DARK_AQUA + "       You can only donate the following items this week:");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.RED + "                   " + dItemNm1);
+						sender.sendMessage(ChatColor.BLUE + "                   " + dItemNm2);
+						sender.sendMessage(ChatColor.GREEN + "                   " + dItemNm3);
+						sender.sendMessage(ChatColor.LIGHT_PURPLE + "                   " + dItemNm4);
+						sender.sendMessage("");
 						return true;
 					}
 					findWinner();
 					String cappedArg = args[1].substring(0, 1).toUpperCase() + args[1].substring(1);
-					sender.sendMessage("     -= Five Kingdoms " + cappedArg + " Contributions =-");
+					sender.sendMessage("");
+					sender.sendMessage(ChatColor.GOLD + "     -= " + ChatColor.DARK_AQUA + "Five Kingdoms " + cappedArg + " Contributions" + ChatColor.GOLD + " =-");
 					if(args[1].equalsIgnoreCase(dItemNm1)) {
-						sender.sendMessage("            Current Winner Is : " + i1Winner);
+						sender.sendMessage(ChatColor.YELLOW + "            Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i1Winner);
 						sender.sendMessage("");
-						sender.sendMessage(kingdom1 + " : " + k1i1);
-						sender.sendMessage(kingdom2 + " : " + k2i1);
-						sender.sendMessage(kingdom3 + " : " + k3i1);
-						sender.sendMessage(kingdom4 + " : " + k4i1);
-						sender.sendMessage(kingdom5 + " : " + k5i1);
-						
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.RED + k1i1);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.RED + k2i1);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.RED + k3i1);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.RED + k4i1);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.RED + k5i1);
+						sender.sendMessage("");
 					}
 					if(args[1].equalsIgnoreCase(dItemNm2)) {
-						sender.sendMessage("            Current Winner Is : " + i2Winner);
+						sender.sendMessage(ChatColor.YELLOW + "            Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i2Winner);
 						sender.sendMessage("");
-						sender.sendMessage(kingdom1 + " : " + k1i2);
-						sender.sendMessage(kingdom2 + " : " + k2i2);
-						sender.sendMessage(kingdom3 + " : " + k3i2);
-						sender.sendMessage(kingdom4 + " : " + k4i2);
-						sender.sendMessage(kingdom5 + " : " + k5i2);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.BLUE + k1i2);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.BLUE + k2i2);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.BLUE + k3i2);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.BLUE + k4i2);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.BLUE + k5i2);
+						sender.sendMessage("");
 					}
 					if(args[1].equalsIgnoreCase(dItemNm3)) {
-						sender.sendMessage("            Current Winner Is : " + i3Winner);
+						sender.sendMessage(ChatColor.YELLOW + "            Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i3Winner);
 						sender.sendMessage("");
-						sender.sendMessage(kingdom1 + " : " + k1i3);
-						sender.sendMessage(kingdom2 + " : " + k2i3);
-						sender.sendMessage(kingdom3 + " : " + k3i3);
-						sender.sendMessage(kingdom4 + " : " + k4i3);
-						sender.sendMessage(kingdom5 + " : " + k5i3);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.GREEN + k1i3);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.GREEN + k2i3);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.GREEN + k3i3);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.GREEN + k4i3);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.GREEN + k5i3);
+						sender.sendMessage("");
 					}
 					if(args[1].equalsIgnoreCase(dItemNm4)) {
-						sender.sendMessage("            Current Winner Is : " + i4Winner);
+						sender.sendMessage(ChatColor.YELLOW + "            Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i4Winner);
 						sender.sendMessage("");
-						sender.sendMessage(kingdom1 + " : " + k1i4);
-						sender.sendMessage(kingdom2 + " : " + k2i4);
-						sender.sendMessage(kingdom3 + " : " + k3i4);
-						sender.sendMessage(kingdom4 + " : " + k4i4);
-						sender.sendMessage(kingdom5 + " : " + k5i4);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k1i4);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k2i4);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k3i4);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k4i4);
+						sender.sendMessage("                     " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k5i4);
+						sender.sendMessage("");
 					}
 				}
 			}	
@@ -469,19 +500,26 @@ public final class Contribute extends JavaPlugin implements Listener{
 				if (args[0].equals("add")) {
 					int itemAmount = Integer.parseInt(args[2]);
 					if ((!args[1].equalsIgnoreCase(dItemNm1))&&(!args[1].equalsIgnoreCase(dItemNm2))&&(!args[1].equalsIgnoreCase(dItemNm3))&&(!args[1].equalsIgnoreCase(dItemNm4))) {
-						sender.sendMessage("You can only donate the following items:");
-						sender.sendMessage(dItemNm1);
-						sender.sendMessage(dItemNm2);
-						sender.sendMessage(dItemNm3);
-						sender.sendMessage(dItemNm4);
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.DARK_AQUA + "       You can only donate the following items this week:");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.RED + "                   " + dItemNm1);
+						sender.sendMessage(ChatColor.BLUE + "                   " + dItemNm2);
+						sender.sendMessage(ChatColor.GREEN + "                   " + dItemNm3);
+						sender.sendMessage(ChatColor.LIGHT_PURPLE + "                   " + dItemNm4);
+						sender.sendMessage("");
 						return true;
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm1)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId1), 1, (short) dItemMeta1), itemAmount)){
-							sender.sendMessage("You don't have that much " + dItemNm1 + "!" );
+							sender.sendMessage("");
+							sender.sendMessage(ChatColor.RED + "You don't have that much " + dItemNm1 + "!" );
+							sender.sendMessage("");
 							return true;
 						}
-						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm1 + "!");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm1 + ChatColor.GREEN + "!");
+						sender.sendMessage("");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId1), itemAmount, (byte) dItemMeta1));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i1 += itemAmount;
@@ -511,10 +549,14 @@ public final class Contribute extends JavaPlugin implements Listener{
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm2)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId2), 1, (short) dItemMeta2), itemAmount)){
-							sender.sendMessage("You don't have that much " + dItemNm2 + "!" );
+							sender.sendMessage("");
+							sender.sendMessage(ChatColor.RED + "You don't have that much " + dItemNm2 + "!" );
+							sender.sendMessage("");
 							return true;
 						}
-						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm2 + "!");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm2 + ChatColor.GREEN + "!");
+						sender.sendMessage("");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId2), itemAmount, (byte) dItemMeta2));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i2 += itemAmount;
@@ -544,10 +586,14 @@ public final class Contribute extends JavaPlugin implements Listener{
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm3)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId3), 1, (short) dItemMeta3), itemAmount)){
-							sender.sendMessage("You don't have that much " + dItemNm3 + "!" );
+							sender.sendMessage("");
+							sender.sendMessage(ChatColor.RED + "You don't have that much " + dItemNm3 + "!" );
+							sender.sendMessage("");
 							return true;
 						}
-						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm3 + "!");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm3 + ChatColor.GREEN + "!");
+						sender.sendMessage("");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId3), itemAmount, (byte) dItemMeta3));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i3 += itemAmount;
@@ -577,10 +623,14 @@ public final class Contribute extends JavaPlugin implements Listener{
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm4)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId4), 1, (short) dItemMeta4), itemAmount)){
-							sender.sendMessage("You don't have that much " + dItemNm4 + "!" );
+							sender.sendMessage("");
+							sender.sendMessage(ChatColor.RED + "You don't have that much " + dItemNm4 + "!" );
+							sender.sendMessage("");
 							return true;
 						}
-						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm4 + "!");
+						sender.sendMessage("");
+						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm4 + ChatColor.GREEN + "!");
+						sender.sendMessage("");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId4), itemAmount, (byte) dItemMeta4));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i4 += itemAmount;
@@ -663,7 +713,7 @@ public final class Contribute extends JavaPlugin implements Listener{
 			}
 			if(i2Winner.equalsIgnoreCase(pKingdom)){
 				String playerName = players[i].getName();
-				econ.depositPlayer(playerName, (double) 100);
+				econ.depositPlayer(playerName, (double) 5);
 			}
 		}
 	}
