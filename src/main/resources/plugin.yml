@@ -1,6 +1,6 @@
 name: Contribute
 main: io.github.jisaacs1207.contribute.Contribute
-version: 0.1
+version: 1.0
 author: jisaacs1207
 website: http://fivekingdoms.net
 depend: [Vault]

@@ -16,12 +16,10 @@ package io.github.jisaacs1207.contribute;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -48,7 +46,7 @@ public final class Contribute extends JavaPlugin implements Listener{
 
 	
 	
-	public String version = "0.1 Alpha";
+	public String version = "1.0 Beta";
 	public String faction = "kingdom";
 	public String prefix = "[CTB]";
 	public String onLoad = " has been successfully loaded.";
