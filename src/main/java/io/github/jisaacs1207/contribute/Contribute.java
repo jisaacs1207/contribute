@@ -667,7 +667,7 @@ public final class Contribute extends JavaPlugin implements Listener{
 	        // If this hasn't happened the value of false will be returned.
 		return false; 
 	}
-	
+	//speedbuff
 	public void miningSpeed(){
 		Player[] players = getServer().getOnlinePlayers();
 		for (int i = 0; i < players.length; i++){
