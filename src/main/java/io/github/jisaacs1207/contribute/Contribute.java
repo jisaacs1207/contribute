@@ -245,7 +245,7 @@ public final class Contribute extends JavaPlugin{
 					sender.sendMessage(dItemNm3 + " - " + kingdom3);
 					sender.sendMessage(dItemNm4 + " - " + kingdom4);
 					}
-				}
+				}	
 			else if (args.length == 2) {
 				if (args[0].equals("add")) {
 					if ((!args[1].equalsIgnoreCase(dItemNm1))&&(!args[1].equalsIgnoreCase(dItemNm2))&&(!args[1].equalsIgnoreCase(dItemNm3))&&(!args[1].equalsIgnoreCase(dItemNm4))) {
@@ -385,15 +385,159 @@ public final class Contribute extends JavaPlugin{
 							k5i4 += 1;
 							this.getConfig().set("kingdom5.item4", k5i4);
 							this.saveConfig();
-						}
-					}
-					
+						}	
+					}	
 				}
 				else if (args[0].equalsIgnoreCase("info")) {
 					// STILL A STUB... FILL IN WITH REAL WINNERS!
 		
 				}
 			}	
+			else if (args.length==3){
+				if (args[0].equals("add")) {
+					sender.sendMessage(args[1]);
+					int itemAmount = Integer.parseInt(args[2]);
+					if ((!args[1].equalsIgnoreCase(dItemNm1))&&(!args[1].equalsIgnoreCase(dItemNm2))&&(!args[1].equalsIgnoreCase(dItemNm3))&&(!args[1].equalsIgnoreCase(dItemNm4))) {
+						sender.sendMessage("You can only donate the following items:");
+						sender.sendMessage(dItemNm1);
+						sender.sendMessage(dItemNm2);
+						sender.sendMessage(dItemNm3);
+						sender.sendMessage(dItemNm4);
+					}
+					else if(args[1].equalsIgnoreCase(dItemNm1)) {
+						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId1), 1, (short) dItemMeta1), itemAmount)){
+							sender.sendMessage("You don't have that much " + dItemNm1 + "!" );
+							return true;
+						}
+						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm1 + "!");
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId1), itemAmount, (byte) dItemMeta1));
+						if (this.pKingdom.equals(kingdom1)){
+							k1i1 += itemAmount;
+							this.getConfig().set("kingdom1.item1", k1i1);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom2)){
+							k2i1 += itemAmount;
+							this.getConfig().set("kingdom2.item1", k2i1);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom3)){
+							k3i1 += itemAmount;
+							this.getConfig().set("kingdom3.item1", k3i1);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom4)){
+							k4i1 += itemAmount;
+							this.getConfig().set("kingdom4.item1", k4i1);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom5)){
+							k5i1 += itemAmount;
+							this.getConfig().set("kingdom5.item1", k5i1);
+							this.saveConfig();
+						}
+					}
+					else if(args[1].equalsIgnoreCase(dItemNm2)) {
+						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId2), 1, (short) dItemMeta2), itemAmount)){
+							sender.sendMessage("You don't have that much " + dItemNm2 + "!" );
+							return true;
+						}
+						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm2 + "!");
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId2), itemAmount, (byte) dItemMeta2));
+						if (this.pKingdom.equals(kingdom1)){
+							k1i2 += itemAmount;
+							this.getConfig().set("kingdom1.item2", k1i2);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom2)){
+							k2i2 += itemAmount;
+							this.getConfig().set("kingdom2.item2", k2i2);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom3)){
+							k3i2 += itemAmount;
+							this.getConfig().set("kingdom3.item2", k3i2);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom4)){
+							k4i2 += itemAmount;
+							this.getConfig().set("kingdom4.item2", k4i2);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom5)){
+							k5i2 += itemAmount;
+							this.getConfig().set("kingdom5.item2", k5i2);
+							this.saveConfig();
+						}
+					}
+					else if(args[1].equalsIgnoreCase(dItemNm3)) {
+						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId3), 1, (short) dItemMeta3), itemAmount)){
+							sender.sendMessage("You don't have that much " + dItemNm3 + "!" );
+							return true;
+						}
+						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm3 + "!");
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId3), itemAmount, (byte) dItemMeta3));
+						if (this.pKingdom.equals(kingdom1)){
+							k1i3 += itemAmount;
+							this.getConfig().set("kingdom1.item3", k1i3);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom2)){
+							k2i3 += itemAmount;
+							this.getConfig().set("kingdom2.item3", k2i3);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom3)){
+							k3i3 += itemAmount;
+							this.getConfig().set("kingdom3.item3", k3i3);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom4)){
+							k4i3 += itemAmount;
+							this.getConfig().set("kingdom4.item3", k4i3);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom5)){
+							k5i3 += itemAmount;
+							this.getConfig().set("kingdom5.item3", k5i3);
+							this.saveConfig();
+						}
+					}
+					else if(args[1].equalsIgnoreCase(dItemNm4)) {
+						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId4), 1, (short) dItemMeta4), itemAmount)){
+							sender.sendMessage("You don't have that much " + dItemNm4 + "!" );
+							return true;
+						}
+						sender.sendMessage(this.pKingdom + " thanks you for your generous donation of " + dItemNm4 + "!");
+						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId4), itemAmount, (byte) dItemMeta4));
+						if (this.pKingdom.equals(kingdom1)){
+							k1i4 += itemAmount;
+							this.getConfig().set("kingdom1.item4", k1i4);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom2)){
+							k2i4 += itemAmount;
+							this.getConfig().set("kingdom2.item4", k2i4);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom3)){
+							k3i4 += itemAmount;
+							this.getConfig().set("kingdom3.item4", k3i4);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom4)){
+							k4i4 += itemAmount;
+							this.getConfig().set("kingdom4.item4", k4i4);
+							this.saveConfig();
+						}
+						else if (this.pKingdom.equals(kingdom5)){
+							k5i4 += itemAmount;
+							this.getConfig().set("kingdom5.item4", k5i4);
+							this.saveConfig();
+						}
+					}
+				}
+			}
 			return true;
 		} //If this has happened the function will return true. 
 	        // If this hasn't happened the value of false will be returned.
