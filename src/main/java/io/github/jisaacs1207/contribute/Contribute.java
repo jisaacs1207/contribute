@@ -163,59 +163,59 @@ public final class Contribute extends JavaPlugin{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player)sender;
-		k1i1 = getConfig().getInt("kingdom1.item1");
-		k1i2 = getConfig().getInt("kingdom1.item2");
-		k1i3 = getConfig().getInt("kingdom1.item3");
-		k1i4 = getConfig().getInt("kingdom1.item4");
-		
-		k2i1 = getConfig().getInt("kingdom2.item1");
-		k2i2 = getConfig().getInt("kingdom2.item2");
-		k2i3 = getConfig().getInt("kingdom2.item3");
-		k2i4 = getConfig().getInt("kingdom2.item4");
-		
-		k3i1 = getConfig().getInt("kingdom3.item1");
-		k3i2 = getConfig().getInt("kingdom3.item2");
-		k3i3 = getConfig().getInt("kingdom3.item3");
-		k3i4 = getConfig().getInt("kingdom3.item4");
-		
-		k4i1 = getConfig().getInt("kingdom4.item1");
-		k4i2 = getConfig().getInt("kingdom4.item2");
-		k4i3 = getConfig().getInt("kingdom4.item3");
-		k4i4 = getConfig().getInt("kingdom4.item4");
-		
-		k5i1 = getConfig().getInt("kingdom5.item1");
-		k5i2 = getConfig().getInt("kingdom5.item2");
-		k5i3 = getConfig().getInt("kingdom5.item3");
-		k5i4 = getConfig().getInt("kingdom5.item4");
-		this.pKingdom = null;
-		if((!player.hasPermission("contribute.1"))&&(!player.hasPermission("contribute.2"))&&(!player.hasPermission("contribute.3"))&&(!player.hasPermission("contribute.4"))&&(!player.hasPermission("contribute.5"))){
-			sender.sendMessage("You have no kingdom affiliation! Contact an OP if you believe this is an error.");
-			return true;
-		}
-		else if(player.isOp()){
-			sender.sendMessage("Stop playing and go do some op work, eh?");
-			return true;
-		}
-		else if(player.hasPermission("contribute.staff")){
-			sender.sendMessage("Stop playing and go do some op work, eh?");
-			return true;
-		}
-		else if(player.hasPermission("contribute.1")){
-			this.pKingdom = kingdom1;
-		}
-		else if(player.hasPermission("contribute.2")){
-			this.pKingdom = kingdom2;
-		}
-		else if(player.hasPermission("contribute.3")){
-			this.pKingdom = kingdom3;
-		}
-		else if(player.hasPermission("contribute.4")){
-			this.pKingdom = kingdom4;
-		}
-		else if(player.hasPermission("contribute.5")){
-			this.pKingdom = kingdom5;
-		}
-		if ((commandLabel.equalsIgnoreCase("contribute"))||(commandLabel.equalsIgnoreCase("ctb"))) { 
+		if ((commandLabel.equalsIgnoreCase("contribute"))||(commandLabel.equalsIgnoreCase("ctb"))) {
+			k1i1 = getConfig().getInt("kingdom1.item1");
+			k1i2 = getConfig().getInt("kingdom1.item2");
+			k1i3 = getConfig().getInt("kingdom1.item3");
+			k1i4 = getConfig().getInt("kingdom1.item4");
+			
+			k2i1 = getConfig().getInt("kingdom2.item1");
+			k2i2 = getConfig().getInt("kingdom2.item2");
+			k2i3 = getConfig().getInt("kingdom2.item3");
+			k2i4 = getConfig().getInt("kingdom2.item4");
+			
+			k3i1 = getConfig().getInt("kingdom3.item1");
+			k3i2 = getConfig().getInt("kingdom3.item2");
+			k3i3 = getConfig().getInt("kingdom3.item3");
+			k3i4 = getConfig().getInt("kingdom3.item4");
+			
+			k4i1 = getConfig().getInt("kingdom4.item1");
+			k4i2 = getConfig().getInt("kingdom4.item2");
+			k4i3 = getConfig().getInt("kingdom4.item3");
+			k4i4 = getConfig().getInt("kingdom4.item4");
+			
+			k5i1 = getConfig().getInt("kingdom5.item1");
+			k5i2 = getConfig().getInt("kingdom5.item2");
+			k5i3 = getConfig().getInt("kingdom5.item3");
+			k5i4 = getConfig().getInt("kingdom5.item4");
+			this.pKingdom = null;
+			if((!player.hasPermission("contribute.1"))&&(!player.hasPermission("contribute.2"))&&(!player.hasPermission("contribute.3"))&&(!player.hasPermission("contribute.4"))&&(!player.hasPermission("contribute.5"))){
+				sender.sendMessage("You have no kingdom affiliation! Contact an OP if you believe this is an error.");
+				return true;
+			}
+			else if(player.isOp()){
+				sender.sendMessage("Stop playing and go do some op work, eh?");
+				return true;
+			}
+			else if(player.hasPermission("contribute.staff")){
+				sender.sendMessage("Stop playing and go do some op work, eh?");
+				return true;
+			}
+			else if(player.hasPermission("contribute.1")){
+				this.pKingdom = kingdom1;
+			}
+			else if(player.hasPermission("contribute.2")){
+				this.pKingdom = kingdom2;
+			}
+			else if(player.hasPermission("contribute.3")){
+				this.pKingdom = kingdom3;
+			}
+			else if(player.hasPermission("contribute.4")){
+				this.pKingdom = kingdom4;
+			}
+			else if(player.hasPermission("contribute.5")){
+				this.pKingdom = kingdom5;
+			}
 			if (args.length == 0) {
 				sender.sendMessage(ChatColor.GOLD + this.prefix + ChatColor.GREEN + " Five Kingdoms Contribute " + this.version);
 				sender.sendMessage(ChatColor.GOLD + this.prefix + ChatColor.GREEN + " Aid your " + this.faction + " by donating materials!");
@@ -395,7 +395,6 @@ public final class Contribute extends JavaPlugin{
 			}	
 			else if (args.length==3){
 				if (args[0].equals("add")) {
-					sender.sendMessage(args[1]);
 					int itemAmount = Integer.parseInt(args[2]);
 					if ((!args[1].equalsIgnoreCase(dItemNm1))&&(!args[1].equalsIgnoreCase(dItemNm2))&&(!args[1].equalsIgnoreCase(dItemNm3))&&(!args[1].equalsIgnoreCase(dItemNm4))) {
 						sender.sendMessage("You can only donate the following items:");
