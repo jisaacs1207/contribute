@@ -190,6 +190,7 @@ public final class Contribute extends JavaPlugin{
 					sender.sendMessage(dItemNm2 + " - " + i2Winner);
 					sender.sendMessage(dItemNm3 + " - " + i3Winner);
 					sender.sendMessage(dItemNm4 + " - " + i4Winner);
+					return true;
 					}
 				}	
 			else if (args.length == 2) {
@@ -200,6 +201,7 @@ public final class Contribute extends JavaPlugin{
 						sender.sendMessage(dItemNm2);
 						sender.sendMessage(dItemNm3);
 						sender.sendMessage(dItemNm4);
+						return true;
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm1)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId1), 1, (short) dItemMeta1), 1)){
@@ -335,8 +337,54 @@ public final class Contribute extends JavaPlugin{
 					}	
 				}
 				else if (args[0].equalsIgnoreCase("info")) {
-					// STILL A STUB... FILL IN WITH REAL WINNERS!
-		
+					if ((!args[1].equalsIgnoreCase(dItemNm1))&&(!args[1].equalsIgnoreCase(dItemNm2))&&(!args[1].equalsIgnoreCase(dItemNm3))&&(!args[1].equalsIgnoreCase(dItemNm4))){
+						sender.sendMessage("You can only check the following items:");
+						sender.sendMessage(dItemNm1);
+						sender.sendMessage(dItemNm2);
+						sender.sendMessage(dItemNm3);
+						sender.sendMessage(dItemNm4);
+						return true;
+					}
+					findWinner();
+					String cappedArg = args[1].substring(0, 1).toUpperCase() + args[1].substring(1);
+					sender.sendMessage("     -= Five Kingdoms " + cappedArg + " Contributions =-");
+					if(args[1].equalsIgnoreCase(dItemNm1)) {
+						sender.sendMessage("            Current Winner Is : " + i1Winner);
+						sender.sendMessage("");
+						sender.sendMessage(kingdom1 + " : " + k1i1);
+						sender.sendMessage(kingdom2 + " : " + k2i1);
+						sender.sendMessage(kingdom3 + " : " + k3i1);
+						sender.sendMessage(kingdom4 + " : " + k4i1);
+						sender.sendMessage(kingdom5 + " : " + k5i1);
+						
+					}
+					if(args[1].equalsIgnoreCase(dItemNm2)) {
+						sender.sendMessage("            Current Winner Is : " + i2Winner);
+						sender.sendMessage("");
+						sender.sendMessage(kingdom1 + " : " + k1i2);
+						sender.sendMessage(kingdom2 + " : " + k2i2);
+						sender.sendMessage(kingdom3 + " : " + k3i2);
+						sender.sendMessage(kingdom4 + " : " + k4i2);
+						sender.sendMessage(kingdom5 + " : " + k5i2);
+					}
+					if(args[1].equalsIgnoreCase(dItemNm3)) {
+						sender.sendMessage("            Current Winner Is : " + i3Winner);
+						sender.sendMessage("");
+						sender.sendMessage(kingdom1 + " : " + k1i3);
+						sender.sendMessage(kingdom2 + " : " + k2i3);
+						sender.sendMessage(kingdom3 + " : " + k3i3);
+						sender.sendMessage(kingdom4 + " : " + k4i3);
+						sender.sendMessage(kingdom5 + " : " + k5i3);
+					}
+					if(args[1].equalsIgnoreCase(dItemNm4)) {
+						sender.sendMessage("            Current Winner Is : " + i4Winner);
+						sender.sendMessage("");
+						sender.sendMessage(kingdom1 + " : " + k1i4);
+						sender.sendMessage(kingdom2 + " : " + k2i4);
+						sender.sendMessage(kingdom3 + " : " + k3i4);
+						sender.sendMessage(kingdom4 + " : " + k4i4);
+						sender.sendMessage(kingdom5 + " : " + k5i4);
+					}
 				}
 			}	
 			else if (args.length==3){
@@ -348,6 +396,7 @@ public final class Contribute extends JavaPlugin{
 						sender.sendMessage(dItemNm2);
 						sender.sendMessage(dItemNm3);
 						sender.sendMessage(dItemNm4);
+						return true;
 					}
 					else if(args[1].equalsIgnoreCase(dItemNm1)) {
 						if (!player.getInventory().containsAtLeast(new ItemStack(Material.getMaterial(dItemId1), 1, (short) dItemMeta1), itemAmount)){
