@@ -14,10 +14,13 @@
 
 package io.github.jisaacs1207.contribute;
 
-import org.bukkit.configuration.file.FileConfiguration;
+import java.util.HashMap;
+import java.util.Map;
+
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -42,6 +45,13 @@ public final class Contribute extends JavaPlugin{
 	public String onLoad = " has been successfully loaded.";
 	public String onUnload = " has been successfully unloaded.";
 	public String syntaxError = "You are clearly confuzzled. /contribute help";
+	
+	// Contribution Winners
+	
+	public static String i1Winner;
+	public String i2Winner;
+	public String i3Winner;
+	public String i4Winner;
 	
 	// Contribution Item Names
 	
@@ -101,58 +111,17 @@ public final class Contribute extends JavaPlugin{
 	
 	public String pKingdom;
 	
-	FileConfiguration contributions;
+	public Map<String, Integer> i1cont = new HashMap<>();
+	public Map<String, Integer> i2cont = new HashMap<>();
+	public Map<String, Integer> i3cont = new HashMap<>();
+	public Map<String, Integer> i4cont = new HashMap<>();
 	
 	@Override
 	public void onEnable() {
 		getLogger().info(this.onLoad);
-		
-		// Set the default config file if it isn't there.
 		saveDefaultConfig();
-
-		// Pull goodies from the config file
-		dItemNm1 = getConfig().getString("FirstDonationItemName");
-		dItemNm2 = getConfig().getString("SecondDonationItemName");
-		dItemNm3 = getConfig().getString("ThirdDonationItemName");
-		dItemNm4 = getConfig().getString("FourthDonationItemName");
-		dItemId1 = getConfig().getInt("FirstDonationItemId");
-		dItemId2 = getConfig().getInt("SecondDonationItemId");
-		dItemId3 = getConfig().getInt("ThirdDonationItemId");
-		dItemId4 = getConfig().getInt("FourthDonationItemId");
-		dItemMeta1 = getConfig().getInt("FirstDonationItemIdMeta");
-		dItemMeta2 = getConfig().getInt("SecondDonationItemIdMeta");
-		dItemMeta3 = getConfig().getInt("ThirdDonationItemIdMeta");
-		dItemMeta4 = getConfig().getInt("FourthDonationItemIdMeta");
-		kingdom1 = getConfig().getString("FirstKingdomName");
-		kingdom2 = getConfig().getString("SecondKingdomName");
-		kingdom3 = getConfig().getString("ThirdKingdomName");
-		kingdom4 = getConfig().getString("FourthKingdomName");
-		kingdom5 = getConfig().getString("FifthKingdomName");
-		
-		k1i1 = getConfig().getInt("kingdom1.item1");
-		k1i2 = getConfig().getInt("kingdom1.item2");
-		k1i3 = getConfig().getInt("kingdom1.item3");
-		k1i4 = getConfig().getInt("kingdom1.item4");
-		
-		k2i1 = getConfig().getInt("kingdom2.item1");
-		k2i2 = getConfig().getInt("kingdom2.item2");
-		k2i3 = getConfig().getInt("kingdom2.item3");
-		k2i4 = getConfig().getInt("kingdom2.item4");
-		
-		k3i1 = getConfig().getInt("kingdom3.item1");
-		k3i2 = getConfig().getInt("kingdom3.item2");
-		k3i3 = getConfig().getInt("kingdom3.item3");
-		k3i4 = getConfig().getInt("kingdom3.item4");
-		
-		k4i1 = getConfig().getInt("kingdom4.item1");
-		k4i2 = getConfig().getInt("kingdom4.item2");
-		k4i3 = getConfig().getInt("kingdom4.item3");
-		k4i4 = getConfig().getInt("kingdom4.item4");
-		
-		k5i1 = getConfig().getInt("kingdom5.item1");
-		k5i2 = getConfig().getInt("kingdom5.item2");
-		k5i3 = getConfig().getInt("kingdom5.item3");
-		k5i4 = getConfig().getInt("kingdom5.item4");
+		fillVariables();
+		findWinner();
 	}
  
 	@Override
@@ -164,30 +133,7 @@ public final class Contribute extends JavaPlugin{
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player)sender;
 		if ((commandLabel.equalsIgnoreCase("contribute"))||(commandLabel.equalsIgnoreCase("ctb"))) {
-			k1i1 = getConfig().getInt("kingdom1.item1");
-			k1i2 = getConfig().getInt("kingdom1.item2");
-			k1i3 = getConfig().getInt("kingdom1.item3");
-			k1i4 = getConfig().getInt("kingdom1.item4");
-			
-			k2i1 = getConfig().getInt("kingdom2.item1");
-			k2i2 = getConfig().getInt("kingdom2.item2");
-			k2i3 = getConfig().getInt("kingdom2.item3");
-			k2i4 = getConfig().getInt("kingdom2.item4");
-			
-			k3i1 = getConfig().getInt("kingdom3.item1");
-			k3i2 = getConfig().getInt("kingdom3.item2");
-			k3i3 = getConfig().getInt("kingdom3.item3");
-			k3i4 = getConfig().getInt("kingdom3.item4");
-			
-			k4i1 = getConfig().getInt("kingdom4.item1");
-			k4i2 = getConfig().getInt("kingdom4.item2");
-			k4i3 = getConfig().getInt("kingdom4.item3");
-			k4i4 = getConfig().getInt("kingdom4.item4");
-			
-			k5i1 = getConfig().getInt("kingdom5.item1");
-			k5i2 = getConfig().getInt("kingdom5.item2");
-			k5i3 = getConfig().getInt("kingdom5.item3");
-			k5i4 = getConfig().getInt("kingdom5.item4");
+			fillVariables();
 			this.pKingdom = null;
 			if((!player.hasPermission("contribute.1"))&&(!player.hasPermission("contribute.2"))&&(!player.hasPermission("contribute.3"))&&(!player.hasPermission("contribute.4"))&&(!player.hasPermission("contribute.5"))){
 				sender.sendMessage("You have no kingdom affiliation! Contact an OP if you believe this is an error.");
@@ -239,11 +185,11 @@ public final class Contribute extends JavaPlugin{
 				else if (args[0].equalsIgnoreCase("info")) {
 					sender.sendMessage("     -= Five Kingdoms Contribute Winners =-");
 					sender.sendMessage("");
-					// kingdom here is a temp stub!! This needs to be changed to decide the winning kingdom later
-					sender.sendMessage(dItemNm1 + " - " + kingdom1);
-					sender.sendMessage(dItemNm2 + " - " + kingdom2);
-					sender.sendMessage(dItemNm3 + " - " + kingdom3);
-					sender.sendMessage(dItemNm4 + " - " + kingdom4);
+					findWinner();
+					sender.sendMessage(dItemNm1 + " - " + i1Winner);
+					sender.sendMessage(dItemNm2 + " - " + i2Winner);
+					sender.sendMessage(dItemNm3 + " - " + i3Winner);
+					sender.sendMessage(dItemNm4 + " - " + i4Winner);
 					}
 				}	
 			else if (args.length == 2) {
@@ -537,11 +483,123 @@ public final class Contribute extends JavaPlugin{
 					}
 				}
 			}
+			fillVariables();
+			findWinner();
 			return true;
 		} //If this has happened the function will return true. 
 	        // If this hasn't happened the value of false will be returned.
 		return false; 
 	}
+	public void fillVariables(){
+		
+		dItemNm1 = getConfig().getString("FirstDonationItemName");
+		dItemNm2 = getConfig().getString("SecondDonationItemName");
+		dItemNm3 = getConfig().getString("ThirdDonationItemName");
+		dItemNm4 = getConfig().getString("FourthDonationItemName");
+		dItemId1 = getConfig().getInt("FirstDonationItemId");
+		dItemId2 = getConfig().getInt("SecondDonationItemId");
+		dItemId3 = getConfig().getInt("ThirdDonationItemId");
+		dItemId4 = getConfig().getInt("FourthDonationItemId");
+		dItemMeta1 = getConfig().getInt("FirstDonationItemIdMeta");
+		dItemMeta2 = getConfig().getInt("SecondDonationItemIdMeta");
+		dItemMeta3 = getConfig().getInt("ThirdDonationItemIdMeta");
+		dItemMeta4 = getConfig().getInt("FourthDonationItemIdMeta");
+		
+		kingdom1 = getConfig().getString("FirstKingdomName");
+		kingdom2 = getConfig().getString("SecondKingdomName");
+		kingdom3 = getConfig().getString("ThirdKingdomName");
+		kingdom4 = getConfig().getString("FourthKingdomName");
+		kingdom5 = getConfig().getString("FifthKingdomName");
+		
+		k1i1 = getConfig().getInt("kingdom1.item1");
+		k1i2 = getConfig().getInt("kingdom1.item2");
+		k1i3 = getConfig().getInt("kingdom1.item3");
+		k1i4 = getConfig().getInt("kingdom1.item4");
+		
+		k2i1 = getConfig().getInt("kingdom2.item1");
+		k2i2 = getConfig().getInt("kingdom2.item2");
+		k2i3 = getConfig().getInt("kingdom2.item3");
+		k2i4 = getConfig().getInt("kingdom2.item4");
+		
+		k3i1 = getConfig().getInt("kingdom3.item1");
+		k3i2 = getConfig().getInt("kingdom3.item2");
+		k3i3 = getConfig().getInt("kingdom3.item3");
+		k3i4 = getConfig().getInt("kingdom3.item4");
+		
+		k4i1 = getConfig().getInt("kingdom4.item1");
+		k4i2 = getConfig().getInt("kingdom4.item2");
+		k4i3 = getConfig().getInt("kingdom4.item3");
+		k4i4 = getConfig().getInt("kingdom4.item4");
+		
+		k5i1 = getConfig().getInt("kingdom5.item1");
+		k5i2 = getConfig().getInt("kingdom5.item2");
+		k5i3 = getConfig().getInt("kingdom5.item3");
+		k5i4 = getConfig().getInt("kingdom5.item4");
+		
+	}
+	public void findWinner(){
+		i1cont.put(kingdom1, k1i1);
+		i1cont.put(kingdom2, k2i1);
+		i1cont.put(kingdom3, k3i1);
+		i1cont.put(kingdom4, k4i1);
+		i1cont.put(kingdom5, k5i1);
+		
+		i2cont.put(kingdom1, k1i2);
+		i2cont.put(kingdom2, k2i2);
+		i2cont.put(kingdom3, k3i2);
+		i2cont.put(kingdom4, k4i2);
+		i2cont.put(kingdom5, k5i2);
+		
+		i3cont.put(kingdom1, k1i3);
+		i3cont.put(kingdom2, k2i3);
+		i3cont.put(kingdom3, k3i3);
+		i3cont.put(kingdom4, k4i3);
+		i3cont.put(kingdom5, k5i3);
+		
+		i4cont.put(kingdom1, k1i4);
+		i4cont.put(kingdom2, k2i4);
+		i4cont.put(kingdom3, k3i4);
+		i4cont.put(kingdom4, k4i4);
+		i4cont.put(kingdom5, k5i4);
+		
+		Map.Entry<String, Integer> maxEntry = null;
+		for (Map.Entry<String, Integer> entry : i1cont.entrySet())
+		{
+		    if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
+		    {
+		        maxEntry = entry;
+		    }
+		}
+		i1Winner = maxEntry.getKey();
+		Map.Entry<String, Integer> maxEntry2 = null;
+		for (Map.Entry<String, Integer> entry2 : i2cont.entrySet())
+		{
+		    if (maxEntry2 == null || entry2.getValue().compareTo(maxEntry2.getValue()) > 0)
+		    {
+		        maxEntry2 = entry2;
+		    }
+		}
+		i2Winner = maxEntry2.getKey();
+		Map.Entry<String, Integer> maxEntry3 = null;
+		for (Map.Entry<String, Integer> entry : i3cont.entrySet())
+		{
+		    if (maxEntry3 == null || entry.getValue().compareTo(maxEntry3.getValue()) > 0)
+		    {
+		        maxEntry3 = entry;
+		    }
+		}
+		i3Winner = maxEntry3.getKey();
+		Map.Entry<String, Integer> maxEntry4 = null;
+		for (Map.Entry<String, Integer> entry : i4cont.entrySet())
+		{
+		    if (maxEntry4 == null || entry.getValue().compareTo(maxEntry4.getValue()) > 0)
+		    {
+		        maxEntry4 = entry;
+		    }
+		}
+		i4Winner = maxEntry4.getKey();
+	}
+	
 }
 
 
