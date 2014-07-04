@@ -18,9 +18,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
 import java.util.HashMap;
 import java.util.Map;
-import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.permission.Permission;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -30,13 +29,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
+
+
 public final class Contribute extends JavaPlugin{
 	
 	// Vault
 	
-	public static Permission perms = null;
-	public static Economy economy = null;
-	public static Chat chat = null;
+
+	public static Economy econ = null;
+
 	
 	
 	public String version = "0.1 Alpha";
@@ -122,11 +123,19 @@ public final class Contribute extends JavaPlugin{
 		saveDefaultConfig();
 		fillVariables();
 		findWinner();
+		setupEconomy();
 		BukkitScheduler feedAuraScheduler = Bukkit.getServer().getScheduler();
 		feedAuraScheduler.scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
                 feedAura();
+            }
+        }, 0L, 200L);
+		BukkitScheduler interestEconScheduler = Bukkit.getServer().getScheduler();
+		interestEconScheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                interestEcon();
             }
         }, 0L, 200L);
 	}
@@ -136,6 +145,19 @@ public final class Contribute extends JavaPlugin{
 		getLogger().info(this.onUnload);
 	}
 
+	private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        return econ != null;
+    }
+	
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player)sender;
@@ -545,6 +567,31 @@ public final class Contribute extends JavaPlugin{
 		} //If this has happened the function will return true. 
 	        // If this hasn't happened the value of false will be returned.
 		return false; 
+	}
+	
+	public void interestEcon(){
+		Player[] players = getServer().getOnlinePlayers();
+		for (int i = 0; i < players.length; i++){
+			if(players[i].hasPermission("contribute.1")){
+				this.pKingdom = kingdom1;
+			}
+			else if(players[i].hasPermission("contribute.2")){
+				this.pKingdom = kingdom2;
+			}
+			else if(players[i].hasPermission("contribute.3")){
+				this.pKingdom = kingdom3;
+			}
+			else if(players[i].hasPermission("contribute.4")){
+				this.pKingdom = kingdom4;
+			}
+			else if(players[i].hasPermission("contribute.5")){
+				this.pKingdom = kingdom5;
+			}
+			if(i2Winner.equalsIgnoreCase(pKingdom)){
+				String playerName = players[i].getName();
+				econ.depositPlayer(playerName, (double) 100);
+			}
+		}
 	}
 	
 	public void feedAura(){
