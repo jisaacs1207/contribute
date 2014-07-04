@@ -17,11 +17,13 @@ package io.github.jisaacs1207.contribute;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.milkbowl.vault.economy.Economy;
-
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -29,12 +31,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 
-
-public final class Contribute extends JavaPlugin{
+public final class Contribute extends JavaPlugin implements Listener{
 	
 	// Vault
 	
@@ -148,6 +153,7 @@ public final class Contribute extends JavaPlugin{
                 miningSpeed();
             }
         }, 0L, 200L);
+		Bukkit.getPluginManager().registerEvents(this, this);
 	}
  
 	@Override
@@ -166,7 +172,42 @@ public final class Contribute extends JavaPlugin{
         econ = rsp.getProvider();
         return econ != null;
     }
-	
+
+	@EventHandler(priority=EventPriority.HIGH)
+	public void onBlockBreak(BlockBreakEvent event) {
+		if(event.getPlayer().hasPermission("contribute.1")){
+			this.pKingdom = kingdom1;
+		}
+		else if(event.getPlayer().hasPermission("contribute.2")){
+			this.pKingdom = kingdom2;
+		}
+		else if(event.getPlayer().hasPermission("contribute.3")){
+			this.pKingdom = kingdom3;
+		}
+		else if(event.getPlayer().hasPermission("contribute.4")){
+			this.pKingdom = kingdom4;
+		}
+		else if(event.getPlayer().hasPermission("contribute.5")){
+			this.pKingdom = kingdom5;
+		}
+		if (i4Winner.equalsIgnoreCase(this.pKingdom)){
+			if(event.getBlock().getType() == Material.STONE){
+		    	double findVoucher = Math.random();
+		    	if(findVoucher < 0.01){
+		    		Player playerEarned = event.getPlayer();
+		    		ItemStack voucher = new ItemStack(Material.getMaterial(339), 1, (byte) 3);
+		    		ItemMeta voucherMeta = voucher.getItemMeta();
+		    		voucherMeta.setDisplayName("CTB Voucher");
+		    		voucher.setItemMeta(voucherMeta);
+		    		List<String> lores = new ArrayList<String>();
+		    		lores.add("Learn More With /ctb");
+		    		voucherMeta.setLore(lores);
+		    		voucher.setItemMeta(voucherMeta);
+		    		playerEarned.getInventory().addItem(voucher);
+		    	}
+		    }
+		}
+	}
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

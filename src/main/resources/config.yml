@@ -39,7 +39,7 @@ FifthKingdomName: Druid
 #### First item donation perk = feed aura
 #### Second item donation perk = money over time perk
 #### Third item donation perk = mining speed
-####
+#### Fourth item donation perk = voucher acquisition
 
 FirstDonationItemName: RedWool
 SecondDonationItemName: Cobblestone
