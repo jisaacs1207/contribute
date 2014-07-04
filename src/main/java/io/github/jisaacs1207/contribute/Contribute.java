@@ -14,13 +14,13 @@
 
 package io.github.jisaacs1207.contribute;
 
+import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitScheduler;
 import java.util.HashMap;
 import java.util.Map;
-
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -122,6 +122,13 @@ public final class Contribute extends JavaPlugin{
 		saveDefaultConfig();
 		fillVariables();
 		findWinner();
+		BukkitScheduler feedAuraScheduler = Bukkit.getServer().getScheduler();
+		feedAuraScheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                feedAura();
+            }
+        }, 0L, 200L);
 	}
  
 	@Override
@@ -539,6 +546,33 @@ public final class Contribute extends JavaPlugin{
 	        // If this hasn't happened the value of false will be returned.
 		return false; 
 	}
+	
+	public void feedAura(){
+		Player[] players = getServer().getOnlinePlayers();
+		for (int i = 0; i < players.length; i++){
+			if(players[i].hasPermission("contribute.1")){
+				this.pKingdom = kingdom1;
+			}
+			else if(players[i].hasPermission("contribute.2")){
+				this.pKingdom = kingdom2;
+			}
+			else if(players[i].hasPermission("contribute.3")){
+				this.pKingdom = kingdom3;
+			}
+			else if(players[i].hasPermission("contribute.4")){
+				this.pKingdom = kingdom4;
+			}
+			else if(players[i].hasPermission("contribute.5")){
+				this.pKingdom = kingdom5;
+			}
+			if(i1Winner.equalsIgnoreCase(pKingdom)){
+				int food = players[i].getFoodLevel();
+				food += 1;
+				players[i].setFoodLevel(food);
+			}
+		}
+	}
+	
 	public void fillVariables(){
 		
 		dItemNm1 = getConfig().getString("FirstDonationItemName");
