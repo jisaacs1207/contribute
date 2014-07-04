@@ -16,9 +16,12 @@ package io.github.jisaacs1207.contribute;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -27,8 +30,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-
-
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 
 public final class Contribute extends JavaPlugin{
@@ -136,6 +139,13 @@ public final class Contribute extends JavaPlugin{
             @Override
             public void run() {
                 interestEcon();
+            }
+        }, 0L, 200L);
+		BukkitScheduler miningSpeedScheduler = Bukkit.getServer().getScheduler();
+		miningSpeedScheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                miningSpeed();
             }
         }, 0L, 200L);
 	}
@@ -567,6 +577,31 @@ public final class Contribute extends JavaPlugin{
 		} //If this has happened the function will return true. 
 	        // If this hasn't happened the value of false will be returned.
 		return false; 
+	}
+	
+	public void miningSpeed(){
+		Player[] players = getServer().getOnlinePlayers();
+		for (int i = 0; i < players.length; i++){
+			if(players[i].hasPermission("contribute.1")){
+				this.pKingdom = kingdom1;
+			}
+			else if(players[i].hasPermission("contribute.2")){
+				this.pKingdom = kingdom2;
+			}
+			else if(players[i].hasPermission("contribute.3")){
+				this.pKingdom = kingdom3;
+			}
+			else if(players[i].hasPermission("contribute.4")){
+				this.pKingdom = kingdom4;
+			}
+			else if(players[i].hasPermission("contribute.5")){
+				this.pKingdom = kingdom5;
+			}
+			if(i3Winner.equalsIgnoreCase(pKingdom)){
+				players[i].removePotionEffect(PotionEffectType.FAST_DIGGING);
+				players[i].addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 200, 1));
+			}
+		}
 	}
 	
 	public void interestEcon(){
