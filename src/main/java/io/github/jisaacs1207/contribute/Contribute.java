@@ -211,10 +211,11 @@ public final class Contribute extends JavaPlugin implements Listener{
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player)sender;
 		if ((commandLabel.equalsIgnoreCase("contribute"))||(commandLabel.equalsIgnoreCase("ctb"))) {
+			this.reloadConfig();
 			fillVariables();
 			this.pKingdom = null;
 			if((!player.hasPermission("contribute.1"))&&(!player.hasPermission("contribute.2"))&&(!player.hasPermission("contribute.3"))&&(!player.hasPermission("contribute.4"))&&(!player.hasPermission("contribute.5"))){
-				sender.sendMessage("ChatColor.YELLOW + You have no kingdom affiliation! Contact an OP if you believe this is an error.");
+				sender.sendMessage(ChatColor.YELLOW + "You have no kingdom affiliation! Contact an OP if you believe this is an error.");
 				return true;
 			}
 			else if(player.isOp()){
