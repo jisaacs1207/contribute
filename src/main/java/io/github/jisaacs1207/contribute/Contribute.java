@@ -248,18 +248,26 @@ public final class Contribute extends JavaPlugin implements Listener{
 				sender.sendMessage("");
 			}
 			else if (args.length == 1) {
-				if (!args[0].equals("help")&&(!args[0].equals("info"))) {
+				if (!args[0].equals("help")&&(!args[0].equals("info"))&&(!args[0].equals("reset"))) {
 					sender.sendMessage(syntaxError);
+				}
+				else if (args[0].equalsIgnoreCase("reset")) {
+					if(sender.hasPermission("contribute.admin")){
+						resetItems();
+					}
+					else{
+						sender.sendMessage(syntaxError);
+					}
 				}
 				else if (args[0].equalsIgnoreCase("help")) {
 					sender.sendMessage("");
-					sender.sendMessage(ChatColor.GOLD + "          -= " + ChatColor.DARK_AQUA + "Five Kingdoms Contribute Help " + ChatColor.GOLD + "=-");
+					sender.sendMessage(ChatColor.GOLD + "               -= " + ChatColor.DARK_AQUA + "Five Kingdoms Contribute Help " + ChatColor.GOLD + "=-");
+					sender.sendMessage(ChatColor.AQUA + "            Donate items to your Kingdom, win perks!");
 					sender.sendMessage("");
-					sender.sendMessage(ChatColor.GOLD + "               /contribute" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Version info");
-					sender.sendMessage(ChatColor.GOLD + "         /contribute help" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Help for for plugin");
-					sender.sendMessage(ChatColor.GOLD + "             /contribute info" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Contribute stats");
-					sender.sendMessage(ChatColor.GOLD + "         /contribute info [item]" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Item stats");
-					sender.sendMessage(ChatColor.GOLD + "  /contribute add <item> [amount]" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Donates items");
+					sender.sendMessage(ChatColor.GOLD + "                    /contribute" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Version info");
+					sender.sendMessage(ChatColor.GOLD + "              /contribute help" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Help for for plugin");
+					sender.sendMessage(ChatColor.GOLD + "      /contribute info [item]" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Contribute broad/[item] stats");
+					sender.sendMessage(ChatColor.GOLD + "       /contribute add <item> [amount]" + ChatColor.WHITE + " -" + ChatColor.YELLOW + " Donates [many] items");
 					sender.sendMessage("");
 					return true;
 				}
@@ -336,6 +344,7 @@ public final class Contribute extends JavaPlugin implements Listener{
 						sender.sendMessage("");
 						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm2 + ChatColor.GREEN + "!");
 						sender.sendMessage("");
+						
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId2), 1, (byte) dItemMeta2));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i2 += 1;
@@ -452,46 +461,49 @@ public final class Contribute extends JavaPlugin implements Listener{
 					}
 					findWinner();
 					String cappedArg = args[1].substring(0, 1).toUpperCase() + args[1].substring(1);
-					sender.sendMessage("");
 					sender.sendMessage(ChatColor.GOLD + "     -= " + ChatColor.DARK_AQUA + "Five Kingdoms " + cappedArg + " Contributions" + ChatColor.GOLD + " =-");
 					if(args[1].equalsIgnoreCase(dItemNm1)) {
-						sender.sendMessage(ChatColor.YELLOW + "            Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i1Winner);
+						sender.sendMessage(ChatColor.YELLOW + "                 Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i1Winner);
+						sender.sendMessage(ChatColor.AQUA + "        The reward is never becoming hungry!");
 						sender.sendMessage("");
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.RED + k1i1);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.RED + k2i1);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.RED + k3i1);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.RED + k4i1);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.RED + k5i1);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.RED + k1i1);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.RED + k2i1);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.RED + k3i1);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.RED + k4i1);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.RED + k5i1);
 						sender.sendMessage("");
 					}
 					if(args[1].equalsIgnoreCase(dItemNm2)) {
-						sender.sendMessage(ChatColor.YELLOW + "            Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i2Winner);
+						sender.sendMessage(ChatColor.YELLOW + "                 Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i2Winner);
+						sender.sendMessage(ChatColor.AQUA + "     The reward is gaining shards per second!");
 						sender.sendMessage("");
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.BLUE + k1i2);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.BLUE + k2i2);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.BLUE + k3i2);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.BLUE + k4i2);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.BLUE + k5i2);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.BLUE + k1i2);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.BLUE + k2i2);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.BLUE + k3i2);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.BLUE + k4i2);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.BLUE + k5i2);
 						sender.sendMessage("");
 					}
 					if(args[1].equalsIgnoreCase(dItemNm3)) {
-						sender.sendMessage(ChatColor.YELLOW + "            Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i3Winner);
+						sender.sendMessage(ChatColor.YELLOW + "                 Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i3Winner);
+						sender.sendMessage(ChatColor.AQUA + "        The reward is a mining speed buff!");
 						sender.sendMessage("");
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.GREEN + k1i3);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.GREEN + k2i3);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.GREEN + k3i3);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.GREEN + k4i3);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.GREEN + k5i3);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.BLUE + k1i3);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.BLUE + k2i3);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.BLUE + k3i3);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.BLUE + k4i3);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.BLUE + k5i3);
 						sender.sendMessage("");
 					}
 					if(args[1].equalsIgnoreCase(dItemNm4)) {
-						sender.sendMessage(ChatColor.YELLOW + "            Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i4Winner);
+						sender.sendMessage(ChatColor.YELLOW + "                 Current Winner Is" + ChatColor.WHITE + " : " + ChatColor.GOLD + i4Winner);
+						sender.sendMessage(ChatColor.AQUA + "       the reward is earning vouchers mining!");
 						sender.sendMessage("");
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k1i4);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k2i4);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k3i4);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k4i4);
-						sender.sendMessage("                     " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k5i4);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom1 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k1i4);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom2 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k2i4);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom3 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k3i4);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom4 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k4i4);
+						sender.sendMessage("                        " + ChatColor.GOLD + kingdom5 + ChatColor.WHITE + " : " + ChatColor.LIGHT_PURPLE + k5i4);
 						sender.sendMessage("");
 					}
 				}
@@ -520,6 +532,8 @@ public final class Contribute extends JavaPlugin implements Listener{
 						sender.sendMessage("");
 						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm1 + ChatColor.GREEN + "!");
 						sender.sendMessage("");
+						Bukkit.broadcastMessage(ChatColor.GOLD + prefix + " " + ChatColor.GREEN + player.getDisplayName() + ChatColor.YELLOW +" has donated " + dItemNm1 + " to " + ChatColor.GOLD + this.pKingdom + ChatColor.YELLOW +"!");
+						Bukkit.broadcastMessage(ChatColor.GOLD + this.prefix + ChatColor.YELLOW + " Type '" + ChatColor.LIGHT_PURPLE + "/contribute help" + ChatColor.YELLOW + "' to learn why.");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId1), itemAmount, (byte) dItemMeta1));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i1 += itemAmount;
@@ -558,6 +572,8 @@ public final class Contribute extends JavaPlugin implements Listener{
 						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm2 + ChatColor.GREEN + "!");
 						sender.sendMessage("");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId2), itemAmount, (byte) dItemMeta2));
+						Bukkit.broadcastMessage(ChatColor.GOLD + prefix + " " + ChatColor.GREEN + player.getDisplayName() + ChatColor.YELLOW +" has donated " + dItemNm2 + " to " + ChatColor.GOLD + this.pKingdom + ChatColor.YELLOW +"!");
+						Bukkit.broadcastMessage(ChatColor.GOLD + this.prefix + ChatColor.YELLOW + " Type '" + ChatColor.LIGHT_PURPLE + "/contribute help" + ChatColor.YELLOW + "' to learn why.");
 						if (this.pKingdom.equals(kingdom1)){
 							k1i2 += itemAmount;
 							this.getConfig().set("kingdom1.item2", k1i2);
@@ -594,6 +610,8 @@ public final class Contribute extends JavaPlugin implements Listener{
 						sender.sendMessage("");
 						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm3 + ChatColor.GREEN + "!");
 						sender.sendMessage("");
+						Bukkit.broadcastMessage(ChatColor.GOLD + prefix + " " + ChatColor.GREEN + player.getDisplayName() + ChatColor.YELLOW +" has donated " + dItemNm3 + " to " + ChatColor.GOLD + this.pKingdom + ChatColor.YELLOW +"!");
+						Bukkit.broadcastMessage(ChatColor.GOLD + this.prefix + ChatColor.YELLOW + " Type '" + ChatColor.LIGHT_PURPLE + "/contribute help" + ChatColor.YELLOW + "' to learn why.");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId3), itemAmount, (byte) dItemMeta3));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i3 += itemAmount;
@@ -631,6 +649,8 @@ public final class Contribute extends JavaPlugin implements Listener{
 						sender.sendMessage("");
 						sender.sendMessage(ChatColor.BLUE + this.pKingdom + ChatColor.GREEN + " thanks you for your generous donation of " + ChatColor.GOLD + dItemNm4 + ChatColor.GREEN + "!");
 						sender.sendMessage("");
+						Bukkit.broadcastMessage(ChatColor.GOLD + prefix + " " + ChatColor.GREEN + player.getDisplayName() + ChatColor.YELLOW +" has donated " + dItemNm4 + " to " + ChatColor.GOLD + this.pKingdom + ChatColor.YELLOW +"!");
+						Bukkit.broadcastMessage(ChatColor.GOLD + this.prefix + ChatColor.YELLOW + " Type '" + ChatColor.LIGHT_PURPLE + "/contribute help" + ChatColor.YELLOW + "' to learn why.");
 						player.getInventory().removeItem(new ItemStack(Material.getMaterial(dItemId4), itemAmount, (byte) dItemMeta4));
 						if (this.pKingdom.equals(kingdom1)){
 							k1i4 += itemAmount;
@@ -713,7 +733,7 @@ public final class Contribute extends JavaPlugin implements Listener{
 			}
 			if(i2Winner.equalsIgnoreCase(pKingdom)){
 				String playerName = players[i].getName();
-				econ.depositPlayer(playerName, (double) 5);
+				econ.depositPlayer(playerName, (double) 3);
 			}
 		}
 	}
@@ -792,6 +812,113 @@ public final class Contribute extends JavaPlugin implements Listener{
 		
 	}
 	public void findWinner(){
+		i1cont.put(kingdom1, k1i1);
+		i1cont.put(kingdom2, k2i1);
+		i1cont.put(kingdom3, k3i1);
+		i1cont.put(kingdom4, k4i1);
+		i1cont.put(kingdom5, k5i1);
+		
+		i2cont.put(kingdom1, k1i2);
+		i2cont.put(kingdom2, k2i2);
+		i2cont.put(kingdom3, k3i2);
+		i2cont.put(kingdom4, k4i2);
+		i2cont.put(kingdom5, k5i2);
+		
+		i3cont.put(kingdom1, k1i3);
+		i3cont.put(kingdom2, k2i3);
+		i3cont.put(kingdom3, k3i3);
+		i3cont.put(kingdom4, k4i3);
+		i3cont.put(kingdom5, k5i3);
+		
+		i4cont.put(kingdom1, k1i4);
+		i4cont.put(kingdom2, k2i4);
+		i4cont.put(kingdom3, k3i4);
+		i4cont.put(kingdom4, k4i4);
+		i4cont.put(kingdom5, k5i4);
+		
+		Map.Entry<String, Integer> maxEntry = null;
+		for (Map.Entry<String, Integer> entry : i1cont.entrySet())
+		{
+		    if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
+		    {
+		        maxEntry = entry;
+		    }
+		}
+		i1Winner = maxEntry.getKey();
+		Map.Entry<String, Integer> maxEntry2 = null;
+		for (Map.Entry<String, Integer> entry2 : i2cont.entrySet())
+		{
+		    if (maxEntry2 == null || entry2.getValue().compareTo(maxEntry2.getValue()) > 0)
+		    {
+		        maxEntry2 = entry2;
+		    }
+		}
+		i2Winner = maxEntry2.getKey();
+		Map.Entry<String, Integer> maxEntry3 = null;
+		for (Map.Entry<String, Integer> entry : i3cont.entrySet())
+		{
+		    if (maxEntry3 == null || entry.getValue().compareTo(maxEntry3.getValue()) > 0)
+		    {
+		        maxEntry3 = entry;
+		    }
+		}
+		i3Winner = maxEntry3.getKey();
+		Map.Entry<String, Integer> maxEntry4 = null;
+		for (Map.Entry<String, Integer> entry : i4cont.entrySet())
+		{
+		    if (maxEntry4 == null || entry.getValue().compareTo(maxEntry4.getValue()) > 0)
+		    {
+		        maxEntry4 = entry;
+		    }
+		}
+		i4Winner = maxEntry4.getKey();
+	}
+	public void resetItems(){
+		k1i1 = 0;
+		k1i2 = 0;
+		k1i3 = 0;
+		k1i4 = 0;
+		
+		k2i1 = 0;
+		k2i2 = 0;
+		k2i3 = 0;
+		k2i4 = 0;
+		
+		k3i1 = 0;
+		k3i2 = 0;
+		k3i3 = 0;
+		k3i4 = 0;
+		
+		k4i1 = 0;
+		k4i2 = 0;
+		k4i3 = 0;
+		k4i4 = 0;
+		
+		k5i1 = 0;
+		k5i2 = 0;
+		k5i3 = 0;
+		k5i4 = 0;
+		
+		this.getConfig().set("kingdom1.item1", k1i1);
+		this.getConfig().set("kingdom1.item2", k1i2);
+		this.getConfig().set("kingdom1.item3", k1i3);
+		this.getConfig().set("kingdom1.item4", k1i4);
+		this.getConfig().set("kingdom2.item1", k2i1);
+		this.getConfig().set("kingdom2.item2", k2i2);
+		this.getConfig().set("kingdom2.item3", k2i3);
+		this.getConfig().set("kingdom2.item4", k2i4);
+		this.getConfig().set("kingdom3.item1", k3i1);
+		this.getConfig().set("kingdom3.item2", k3i2);
+		this.getConfig().set("kingdom3.item3", k3i3);
+		this.getConfig().set("kingdom3.item4", k3i4);
+		this.getConfig().set("kingdom4.item1", k4i1);
+		this.getConfig().set("kingdom4.item2", k4i2);
+		this.getConfig().set("kingdom4.item3", k4i3);
+		this.getConfig().set("kingdom4.item4", k4i4);
+		this.getConfig().set("kingdom5.item1", k5i1);
+		this.getConfig().set("kingdom5.item2", k5i2);
+		this.getConfig().set("kingdom5.item3", k5i3);
+
 		i1cont.put(kingdom1, k1i1);
 		i1cont.put(kingdom2, k2i1);
 		i1cont.put(kingdom3, k3i1);
