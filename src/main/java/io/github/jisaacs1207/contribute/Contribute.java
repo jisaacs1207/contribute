@@ -197,7 +197,7 @@ public final class Contribute extends JavaPlugin implements Listener{
 		    		double findVoucher = Math.random();
 			    	if(findVoucher < 0.01){
 			    		Player playerEarned = event.getPlayer();
-			    		ItemStack voucher = new ItemStack(Material.getMaterial(339), 1, (byte) 3);
+			    		ItemStack voucher = new ItemStack(Material.getMaterial(339), 1, (byte) 4);
 			    		ItemMeta voucherMeta = voucher.getItemMeta();
 			    		voucherMeta.setDisplayName("CTB Voucher");
 			    		voucher.setItemMeta(voucherMeta);
