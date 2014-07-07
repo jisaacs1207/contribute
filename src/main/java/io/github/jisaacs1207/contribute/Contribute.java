@@ -190,19 +190,24 @@ public final class Contribute extends JavaPlugin implements Listener{
 		}
 		if (i4Winner.equalsIgnoreCase(this.pKingdom)){
 			if(event.getBlock().getType() == Material.STONE){
-		    	double findVoucher = Math.random();
-		    	if(findVoucher < 0.01){
-		    		Player playerEarned = event.getPlayer();
-		    		ItemStack voucher = new ItemStack(Material.getMaterial(339), 1, (byte) 3);
-		    		ItemMeta voucherMeta = voucher.getItemMeta();
-		    		voucherMeta.setDisplayName("CTB Voucher");
-		    		voucher.setItemMeta(voucherMeta);
-		    		List<String> lores = new ArrayList<String>();
-		    		lores.add("Learn More With /ctb");
-		    		voucherMeta.setLore(lores);
-		    		voucher.setItemMeta(voucherMeta);
-		    		playerEarned.getInventory().addItem(voucher);
-		    	}
+		    	if((event.getPlayer().getItemInHand() == new ItemStack(Material.WOOD_PICKAXE))||(event.getPlayer().getItemInHand() == 
+		    			new ItemStack(Material.STONE_PICKAXE))||(event.getPlayer().getItemInHand() == new ItemStack(Material.IRON_PICKAXE))||
+		    			(event.getPlayer().getItemInHand() == new ItemStack(Material.GOLD_PICKAXE))||(event.getPlayer().getItemInHand() == new 
+		    			ItemStack(Material.DIAMOND_PICKAXE))){
+		    		double findVoucher = Math.random();
+			    	if(findVoucher < 0.01){
+			    		Player playerEarned = event.getPlayer();
+			    		ItemStack voucher = new ItemStack(Material.getMaterial(339), 1, (byte) 3);
+			    		ItemMeta voucherMeta = voucher.getItemMeta();
+			    		voucherMeta.setDisplayName("CTB Voucher");
+			    		voucher.setItemMeta(voucherMeta);
+			    		List<String> lores = new ArrayList<String>();
+			    		lores.add("Learn More With /ctb");
+			    		voucherMeta.setLore(lores);
+			    		voucher.setItemMeta(voucherMeta);
+			    		playerEarned.getInventory().addItem(voucher);
+			    	}
+		    	}		
 		    }
 		}
 	}
