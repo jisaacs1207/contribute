@@ -1,7 +1,3 @@
-// TO DO
-// 1) FILL IN STUBS
-// 2) ...
-// 3) PROFIT
 
 // Permissions:
 // contribute.admin - admin commands
