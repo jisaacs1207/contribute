@@ -2,7 +2,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.jisaacs1207</groupId>
   <artifactId>Contribute</artifactId>
-  <version>1.0-Beta</version>
   <build>
       <plugins>
           <plugin>
@@ -41,4 +40,5 @@
            <scope>provided</scope>
        </dependency>
    </dependencies>
+   <version>2</version>
 </project>

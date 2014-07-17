@@ -12,11 +12,14 @@ package io.github.jisaacs1207.contribute;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.ChatColor;
@@ -186,10 +189,8 @@ public final class Contribute extends JavaPlugin implements Listener{
 		}
 		if (i4Winner.equalsIgnoreCase(this.pKingdom)){
 			if(event.getBlock().getType() == Material.STONE){
-		    	if((event.getPlayer().getItemInHand() == new ItemStack(Material.WOOD_PICKAXE))||(event.getPlayer().getItemInHand() == 
-		    			new ItemStack(Material.STONE_PICKAXE))||(event.getPlayer().getItemInHand() == new ItemStack(Material.IRON_PICKAXE))||
-		    			(event.getPlayer().getItemInHand() == new ItemStack(Material.GOLD_PICKAXE))||(event.getPlayer().getItemInHand() == new 
-		    			ItemStack(Material.DIAMOND_PICKAXE))){
+				int hand = event.getPlayer().getItemInHand().getTypeId();
+				if(hand != 25030){
 		    		double findVoucher = Math.random();
 			    	if(findVoucher < 0.01){
 			    		Player playerEarned = event.getPlayer();
@@ -204,7 +205,7 @@ public final class Contribute extends JavaPlugin implements Listener{
 			    		playerEarned.getInventory().addItem(voucher);
 			    	}
 		    	}		
-		    }
+			}
 		}
 	}
 	
