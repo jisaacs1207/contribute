@@ -6,7 +6,6 @@
 // contribute.3 - kingdom three
 // contribute.4 - kingdom four
 // contribute.5 - kingdom five
-// contribute.staff - staff that can't contribute
 
 package io.github.jisaacs1207.contribute;
 
@@ -218,14 +217,6 @@ public final class Contribute extends JavaPlugin implements Listener{
 			this.pKingdom = null;
 			if((!player.hasPermission("contribute.1"))&&(!player.hasPermission("contribute.2"))&&(!player.hasPermission("contribute.3"))&&(!player.hasPermission("contribute.4"))&&(!player.hasPermission("contribute.5"))){
 				sender.sendMessage(ChatColor.YELLOW + "You have no kingdom affiliation! Contact an OP if you believe this is an error.");
-				return true;
-			}
-			else if(player.isOp()){
-				sender.sendMessage(ChatColor.YELLOW + "Stop playing and go do some op work, eh?");
-				return true;
-			}
-			else if(player.hasPermission("contribute.staff")){
-				sender.sendMessage(ChatColor.YELLOW + "Stop playing and go do some op work, eh?");
 				return true;
 			}
 			else if(player.hasPermission("contribute.1")){
